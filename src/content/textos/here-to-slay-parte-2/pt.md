@@ -13,6 +13,14 @@ Na [parte 1](/pt/textos/here-to-slay-parte-1/) eu contei por que comecei este pr
 
 O primeiro commit era só um app **Electron + React + Vite + TypeScript** com uma tela de login. Dois dias depois já existia o servidor, com login, criação de lobby e entrada no lobby. No dia 8 de setembro veio a criação da partida e o "Gameplay pt.1", e no dia seguinte a parte 2.
 
+Para ilustrar este texto, voltei o código para o último commit desse mês, de 2 de outubro de 2025, subi o servidor e abri duas janelas com dois jogadores de teste, João e Maria. As telas abaixo são dessa versão, do jeito que ela era.
+
+![Tela de login da primeira versão: um campo de nome de usuário e um botão, sobre um cenário em pixel art com um castelo](./tela-login.webp)
+
+O login era só um nome, sem senha: o servidor criava o jogador na hora e guardava na memória. Depois vinha uma lista de lobbies, onde dava para criar uma sala com um mínimo e um máximo de jogadores. Quando o mínimo era atingido, começava uma contagem regressiva, e a partida abria sozinha no fim dela.
+
+![Lobby da primeira versão: os nomes Maria e João, o aviso de que a partida começa em 5 segundos e o contador de jogadores em 2 de 2](./tela-lobby.webp)
+
 A partir daí o ritmo foi este: fazer uma mecânica funcionar, estabilizar, deixar bonita. A janela de desafio ficou estável no dia 12, e no mesmo dia chegaram as animações do party leader, do baralho e da troca de turno, além dos primeiros efeitos sonoros. Nas semanas seguintes os efeitos das cartas foram entrando um por um: destruir, roubar, comprar, roubar da mão e, por último, trocar de mão com outro jogador.
 
 ## Um servidor, um protocolo, tudo em memória
@@ -51,6 +59,18 @@ Uma partida de Here To Slay tem muitas fases: rolar dados para a ordem, escolher
 
 O estado decide o que pode acontecer em cada momento e também o que o cliente mostra. Antes de qualquer ação, o servidor confere se é a vez de quem mandou; se não for, ignora a mensagem. Do lado da tela, o botão de desafio só aparece em `CHALLENGE_WINDOW`, e as cartas só ficam selecionáveis em `SELECTING_CARDS` ou `SELECTING_HAND_CARDS`.
 
+Dá para ver isso nas telas. Em `ORDER_SELECTION`, a partida começa com dois dados 3D no meio da mesa. Cada jogador clica neles na sua vez, e o placar ao lado vai anotando as rolagens:
+
+![Rolagem da ordem dos turnos: dois dados 3D mostrando 4 e 3, e um placar de ordem com João tendo tirado 7 e Maria ainda sem rolar](./tela-ordem.webp)
+
+Em `PARTY_LEADER_SELECTION`, cada jogador escolhe o líder do grupo, um por vez. Clicar numa carta abre um pequeno menu para ver a carta ampliada ou escolher, e os líderes que já foram pegos ficam em preto e branco:
+
+![Escolha do líder do grupo: as cartas de líder lado a lado e um menu com as opções Visualizar e Escolher aberto sobre o Bard](./tela-lider.webp)
+
+E em `GAMEPLAY`, a mesa de verdade: o grupo do jogador no meio, a mão embaixo, o baralho e o descarte no alto e os avatares de quem está na partida. A mão cheia de cópias da mesma carta não é um acaso da foto. Nessa fase, o baralho era montado com 120 cópias de um único herói, que recebia o efeito que eu estivesse testando naquele dia. No último commit do mês, era a troca de mão.
+
+![A mesa da primeira versão: um Greedy Cheeks já no grupo, os dois dados prontos para a rolagem do herói e a mão com quatro cópias da mesma carta](./tela-mesa.webp)
+
 Dois estados do enum, `APPLYING_CARD_EFFECTS` e `FINISHED`, foram declarados pensando no futuro e ainda não eram usados. É o tipo de coisa que eu deixo de propósito como lembrete do que falta.
 
 ## A janela de desafio
@@ -69,6 +89,14 @@ challengeTimer.scheduleAtFixedRate(new TimerTask() {
 ```
 
 Como dois jogadores podem clicar em "desafiar" quase ao mesmo tempo, os métodos que mexem nesse estado (`challengeHero`, `processDuelRoll`, `processOrderSelectionRoll`) são `synchronized`: só um entra por vez. O primeiro desafio pausa o relógio, guardando o tempo que faltava, e leva os dois jogadores para um duelo de dados. Quem já desafiou aquele herói não pode desafiar de novo. Se o herói vence o duelo, a janela reabre com o tempo restante, e outro jogador ainda pode tentar. Se o desafiante vence, o herói vai para o descarte.
+
+Do lado de quem não está jogando, a janela aparece como um botão no meio da mesa, com o tempo que falta logo embaixo. Aqui a Maria acabou de jogar um herói, e o João tem alguns segundos para decidir:
+
+![A janela de desafio vista pelo João: o herói que a Maria jogou à esquerda e, no meio, o botão de desafio com o aviso de 7,8 segundos restantes](./tela-janela-desafio.webp)
+
+Ao clicar, os dois vão para a tela de duelo, azul contra vermelho, e cada um rola os próprios dados. A coroa marca quem venceu. Neste caso, a Maria tirou 7 contra 3 do João, e o herói dela ficou no grupo:
+
+![Tela de duelo: Maria, em azul, com 7 e uma coroa, contra João, em vermelho, com 3](./tela-duelo.webp)
 
 ## Cartas como peças de Lego
 

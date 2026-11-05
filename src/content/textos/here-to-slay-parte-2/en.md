@@ -13,6 +13,14 @@ In [part 1](/en/writing/here-to-slay-parte-1/) I told you why I started this pro
 
 The first commit was just an **Electron + React + Vite + TypeScript** app with a login screen. Two days later there was already a server, with login, lobby creation and joining a lobby. On September 8 came match creation and "Gameplay pt.1", and part 2 the next day.
 
+To illustrate this post, I took the code back to the last commit of that month, from October 2, 2025, started the server and opened two windows with two test players, João and Maria. The screens below are from that version, exactly as it was.
+
+![Login screen of the first version: a username field and a button over a pixel-art landscape with a castle](./tela-login.webp)
+
+Logging in was just a name, no password: the server created the player on the spot and kept it in memory. Next came a list of lobbies, where you could create a room with a minimum and a maximum number of players. Once the minimum was reached, a countdown started, and the match opened on its own when it ended.
+
+![Lobby in the first version: the names Maria and João, a notice that the match starts in 5 seconds and the player count at 2 of 2](./tela-lobby.webp)
+
 From then on the rhythm was: make a mechanic work, stabilize it, make it look good. The challenge window became stable on the 12th, and on the same day came the animations for the party leader, the deck and turn changes, plus the first sound effects. Over the following weeks the card effects arrived one by one: destroy, steal, draw, steal from hand and, last, trading hands with another player.
 
 ## One server, one protocol, everything in memory
@@ -51,6 +59,18 @@ A game of Here To Slay has a lot of phases: rolling for turn order, picking a pa
 
 The state decides what can happen at any moment and also what the client shows. Before any action, the server checks whether it's the sender's turn; if not, it ignores the message. On screen, the challenge button only shows up in `CHALLENGE_WINDOW`, and cards are only selectable in `SELECTING_CARDS` or `SELECTING_HAND_CARDS`.
 
+You can see this on screen. In `ORDER_SELECTION`, the match starts with two 3D dice in the middle of the table. Each player clicks them on their turn, and the scoreboard on the side records the rolls:
+
+![Turn order roll: two 3D dice showing 4 and 3, and an order scoreboard with João at 7 and Maria yet to roll](./tela-ordem.webp)
+
+In `PARTY_LEADER_SELECTION`, each player picks a party leader, one at a time. Clicking a card opens a small menu to view it larger or choose it, and leaders already taken turn black and white:
+
+![Party leader choice: the leader cards side by side and a menu with the options to view or choose open over the Bard](./tela-lider.webp)
+
+And in `GAMEPLAY`, the actual table: the player's party in the middle, the hand at the bottom, the deck and discard pile at the top and the avatars of everyone in the match. A hand full of copies of the same card isn't an accident of the screenshot. At this stage, the deck was built from 120 copies of a single hero, which got whatever effect I was testing that day. In the last commit of the month, it was trading hands.
+
+![The table in the first version: a Greedy Cheeks already in the party, both dice ready for the hero roll and a hand with four copies of the same card](./tela-mesa.webp)
+
 Two states in the enum, `APPLYING_CARD_EFFECTS` and `FINISHED`, were declared with the future in mind and weren't used yet. That's the kind of thing I leave on purpose as a reminder of what's missing.
 
 ## The challenge window
@@ -69,6 +89,14 @@ challengeTimer.scheduleAtFixedRate(new TimerTask() {
 ```
 
 Since two players can hit "challenge" at almost the same time, the methods that touch this state (`challengeHero`, `processDuelRoll`, `processOrderSelectionRoll`) are `synchronized`: only one gets in at a time. The first challenge pauses the clock, saving the remaining time, and takes both players into a dice duel. Whoever already challenged that hero can't challenge it again. If the hero wins the duel, the window reopens with the time that was left, and another player can still try. If the challenger wins, the hero goes to the discard pile.
+
+For the players who aren't acting, the window shows up as a button in the middle of the table, with the time left right below it. Here Maria has just played a hero, and João has a few seconds to decide:
+
+![The challenge window as João sees it: the hero Maria played on the left and, in the middle, the challenge button with 7.8 seconds left](./tela-janela-desafio.webp)
+
+Clicking it takes both players to the duel screen, blue against red, and each one rolls their own dice. The crown marks the winner. In this case, Maria rolled 7 against João's 3, and her hero stayed in the party:
+
+![Duel screen: Maria, in blue, with 7 and a crown, against João, in red, with 3](./tela-duelo.webp)
 
 ## Cards as Lego pieces
 

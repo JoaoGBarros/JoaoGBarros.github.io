@@ -51,6 +51,12 @@ case "match" -> producer.send(new ProducerRecord<>("game-actions-in", obj.get("i
 
 In a turn-based game, the order of actions matters: if I play a card and then attack a monster, the engine has to process them in that order. Kafka only guarantees order **within a partition**, so the key of every message is the `matchId`. Every action of the same match lands on the same partition and arrives in order.
 
+You can watch it happen. I ran the May 2026 version again, played the start of a match with two test players and opened `game-actions-in` in the Kafka UI:
+
+![The game-actions-in topic in the Kafka UI: thirteen messages, all with the same key and on partition 1, going from start_match to the order rolls, the leader picks, a card played, a challenge and the two duel rolls](./kafka-ui-game-actions-in.webp)
+
+Read from the bottom up, it's the whole match told by the topic: `start_match`, the two order rolls (5 and 9), the two leader picks, a card being played, a `challenge` and the two duel rolls. Every message has the same key, the match ID, so they all sit on partition 1, in the exact order they happened.
+
 That also solves scaling. The three engines join the **same consumer group** (`heretoslay-engine`), and Kafka splits the three partitions of `game-actions-in` among them. Each partition has a single owner at a time, so each match is processed by exactly one engine, with no two instances fighting over the same state. If an engine dies, Kafka *rebalances* and hands its partitions to the others.
 
 ![The path of a move: from the player to the gateway, from the gateway to the game-actions-in partition, from the engine that owns that partition to game-state-out and back to the players. Below, the rebalance when an engine dies](./kafka-jogada.en.svg)
@@ -96,6 +102,12 @@ Compared to part 2:
 - **Order:** guaranteed per match, by the key.
 - **Decoupling:** the gateway doesn't know the engine exists, and vice versa. Both only know topics.
 - **Observability:** with the Kafka UI, I can watch every action of every player flow through the topics. That helped a lot with debugging.
+
+For the player, on the other hand, nothing changed. The screens of this version are identical to part 2, because the client kept talking to a WebSocket on the same port, unaware that there were now three services and a cluster on the other side. All the change happened behind the gateway, and the only place it shows is in the topics:
+
+![The game-state-out topic in the Kafka UI: the engine's replies for the same match, with the same key and on the same partition, almost all of them challenge clock and match state updates](./kafka-ui-game-state-out.webp)
+
+`game-state-out` shows the other side of the conversation: the engine's replies for the same match, with the same key. Most of them are `timer_update`, the challenge window countdown from part 2, which now goes out every 100 ms as a Kafka message instead of straight through the socket.
 
 The cost is real too: many more pieces to start, more things that can go wrong and new bugs that didn't exist before, like the synchronization errors between lobbies I had to fix in May. For a card game among friends, it's clearly more architecture than needed. But the goal was to learn, and for that it was perfect.
 

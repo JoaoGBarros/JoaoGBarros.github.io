@@ -51,6 +51,12 @@ case "match" -> producer.send(new ProducerRecord<>("game-actions-in", obj.get("i
 
 Num jogo de turnos, a ordem das ações importa: se eu jogo uma carta e depois ataco um monstro, a engine precisa processar nessa ordem. O Kafka só garante ordem **dentro de uma partição**, então a chave de cada mensagem é o `matchId`. Todas as ações da mesma partida caem na mesma partição e chegam em ordem.
 
+Dá para ver isso acontecendo. Rodei de novo a versão de maio de 2026, joguei o começo de uma partida com dois jogadores de teste e abri o `game-actions-in` no Kafka UI:
+
+![O tópico game-actions-in no Kafka UI: treze mensagens, todas com a mesma chave e na partição 1, indo de start_match às rolagens de ordem, à escolha dos líderes, a uma carta jogada, a um desafio e às duas rolagens do duelo](./kafka-ui-game-actions-in.webp)
+
+De baixo para cima, é a partida inteira contada pelo tópico: o `start_match`, as duas rolagens de ordem (5 e 9), as duas escolhas de líder, uma carta jogada, um `challenge` e as duas rolagens do duelo. Todas as mensagens têm a mesma chave, que é o ID da partida, e por isso estão todas na partição 1, na ordem exata em que aconteceram.
+
 Isso também resolve a escala. As três engines entram no **mesmo consumer group** (`heretoslay-engine`), e o Kafka divide as três partições do `game-actions-in` entre elas. Cada partição tem um único dono por vez, então cada partida é processada por exatamente uma engine, sem duas instâncias brigando pelo mesmo estado. Se uma engine cai, o Kafka faz o *rebalance* e passa as partições dela para as outras.
 
 ![O caminho de uma jogada: do jogador ao gateway, do gateway à partição do game-actions-in, da engine dona da partição ao game-state-out e de volta aos jogadores. Embaixo, o rebalance quando uma engine cai](./kafka-jogada.pt.svg)
@@ -96,6 +102,12 @@ Comparando com a parte 2:
 - **Ordem:** garantida por partida, pela chave.
 - **Desacoplamento:** o gateway não sabe que a engine existe, e vice-versa. Os dois só conhecem tópicos.
 - **Observabilidade:** com o Kafka UI, dá para ver cada ação de cada jogador passando pelos tópicos. Isso ajudou muito a depurar.
+
+Para o jogador, por outro lado, nada mudou. As telas dessa versão são idênticas às da parte 2, porque o cliente continuou falando com um WebSocket na mesma porta, sem saber que do outro lado agora existiam três serviços e um cluster. Toda a mudança aconteceu atrás do gateway, e o único lugar onde ela aparece é nos tópicos:
+
+![O tópico game-state-out no Kafka UI: as respostas da engine para a mesma partida, com a mesma chave e na mesma partição, quase todas atualizações do relógio do desafio e do estado da partida](./kafka-ui-game-state-out.webp)
+
+No `game-state-out` aparece o outro lado da conversa: as respostas da engine para a mesma partida, com a mesma chave. A maior parte é `timer_update`, a contagem regressiva da janela de desafio da parte 2, que agora sai a cada 100 ms como mensagem no Kafka em vez de ir direto pelo socket.
 
 O preço também é real: são muito mais peças para subir, mais coisas que podem dar errado e bugs novos que antes não existiam, como os erros de sincronização entre lobbies que precisei corrigir em maio. Para um jogo de cartas entre amigos, é claramente mais arquitetura do que o necessário. Mas o objetivo era aprender, e para isso foi perfeito.
 

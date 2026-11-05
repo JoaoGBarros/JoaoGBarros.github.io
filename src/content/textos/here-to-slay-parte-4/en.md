@@ -19,6 +19,10 @@ The most important decision came before any code: monitoring would be a **separa
 
 That has a great consequence: if the topology has a bug, or if the service goes down, **the match carries on as usual**. Worst case, nobody gets the badge. Monitoring can evolve freely without any fear of breaking the game.
 
+Every alert it produces goes to that topic, keyed by match, like any other event in the system:
+
+![The game-monitoring-alerts topic in the Kafka UI: messages keyed by match, some carrying the action history and others a player's action count](./kafka-ui-alertas.webp)
+
 The way back reuses what already existed. The gateway consumes `game-monitoring-alerts` and delivers each alert over WebSocket. Some alerts go to the whole match, and to know who is in it the gateway keeps a cache of each match's players, fed by the compacted `match-state-store` topic from part 3.
 
 ## Three ways to process an event
@@ -89,6 +93,32 @@ The topology wasn't born like this. Two changes tell its evolution well:
 - **A join that became a history.** The first version of situation 1 was a *join* between `game-actions-in` and `game-state-out`, over a 2-second window, pairing each action with its result. It worked, but all it produced was a generic "action processed" notice. We replaced it with a processor that keeps the match's last 25 actions and sends the whole list, which became a history panel on the game screen. We went from a join to an aggregation with a state store, and the feature got a lot more useful.
 - **A situation that went away.** There was a "stalled match" alert, with a *session window* that detected 60 seconds without any action. It didn't make it into the final version.
 
+On screen, the history became a **History** button in the corner of the table. It opens the list of the match's latest actions, built entirely by the monitoring service:
+
+![The History panel open in the corner of the table, showing that João rolled for turn order and that the match started, next to the order scoreboard](./tela-historico.webp)
+
+The "Someone start_match" on the last line shows exactly where the list comes from: the start of the match is published by the engine, with no player as its author, and the panel shows the event just as it went through the topic.
+
 For me, that was the most interesting lesson of this stage: with events already flowing through Kafka, building a new feature became a matter of **reading what already exists** in a different way, without touching a single line of the engine. And that only works because of the architecture from part 3.
 
-That wraps up the story of how Here To Slay got here. There's still stuff on the list, starting with the match recovery that's still missing. When it ships, it'll be the topic of the next part.
+This was also the stage where the game screen changed for the first time since part 2. The light table with the pixel-art scenery gave way to a dark one, the turn became a badge at the top, and the history got a spot next to the deck and the discard pile. The logic underneath was the same; only the look changed:
+
+![The table in the July 2026 version: dark background, deck and discard pile at the top, the History button, the turn order dice and the Turn Order scoreboard with João at 6](./tela-ordem-nova.webp)
+
+The table also got what was missing in part 2. **Monsters** sit at the top, each with the requirements to attack it, and below them is the player's party, with the leader on the left and an area to drag heroes into from the hand. In the corner, the three diamonds are the turn's action points, and the **modifier** card in the hand already says when it can be played: during a modifier window, after a roll.
+
+![The table in the July version: three monsters at the top with their requirements, the Bard leader on the left, the area to drag heroes into, three action points in the corner and a hand with two heroes and a +4 modifier](./tela-mesa-nova.webp)
+
+The challenge window and the duel follow the same logic as in part 2, just with the new look. Here Maria played Wildshot, and João sees the challenge button with 6.5 seconds to decide:
+
+![The challenge window in the July version: the Wildshot Maria played on the left and, in the middle, the challenge button with 6.5 seconds left](./tela-janela-desafio-nova.webp)
+
+In the duel, green against red, João has already rolled 9, and Maria is about to roll. Look at her hand: a +3/-1 modifier, which could change that result in the modifier window that opens after the roll.
+
+![The duel in the July version: Maria, in green, still about to roll, against João, in red, who rolled 9, with Maria's hand below showing three heroes and a +3 or -1 modifier](./tela-duelo-novo.webp)
+
+## After the course
+
+Once the semester ended, the project was handed in, and Here To Slay could have stopped right there. But the goal since [part 1](/en/writing/here-to-slay-parte-1/) was never passing a course: it was playing with my friends. And for that, a lot was still missing. Several base-game cards didn't exist or didn't follow the official rules, the interface only made sense to whoever was taking their turn, the game only ran on my machine, and there was no way to play alone.
+
+In late October 2026 I came back to the project with a new goal: turning the course project into a real game. The next parts tell that story. Part 5 is about the biggest refactor in the project: rewriting the effects of all 68 cards.

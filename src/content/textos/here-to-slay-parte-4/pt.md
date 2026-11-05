@@ -19,6 +19,10 @@ A decisão mais importante veio antes de qualquer código: o monitoramento seria
 
 Isso tem uma consequência ótima: se a topologia tiver um bug, ou se o serviço cair, **a partida continua igual**. No pior caso, ninguém recebe a badge. Dá para evoluir o monitoramento à vontade sem medo de quebrar o jogo.
 
+Os alertas que ele gera vão todos para esse tópico, com a chave da partida, como qualquer outro evento do sistema:
+
+![O tópico game-monitoring-alerts no Kafka UI: mensagens com a chave de cada partida, umas com o histórico de ações e outras com a contagem de ações de um jogador](./kafka-ui-alertas.webp)
+
 O caminho de volta reaproveita o que já existia. O gateway consome `game-monitoring-alerts` e entrega cada alerta pelo WebSocket. Alguns alertas vão para a partida inteira, e para saber quem está nela o gateway mantém um cache dos jogadores de cada partida, alimentado pelo tópico compactado `match-state-store` da parte 3.
 
 ## Três jeitos de processar um evento
@@ -89,6 +93,32 @@ A topologia não nasceu assim. Duas mudanças contam bem como ela evoluiu:
 - **Um join que virou histórico.** A primeira versão da situação 1 era um *join* entre `game-actions-in` e `game-state-out`, numa janela de 2 segundos, que juntava cada ação com o seu resultado. Funcionava, mas só gerava um aviso genérico de "ação processada". Trocamos por um processador que guarda as últimas 25 ações da partida e manda a lista inteira, que virou um painel de histórico na tela do jogo. Saímos de um join para uma agregação com state store, e a feature ficou muito mais útil.
 - **Uma situação que saiu.** Existia um alerta de "partida travada", com uma *session window* que detectava 60 segundos sem nenhuma ação. Ele acabou saindo da versão final.
 
+Na tela, o histórico virou um botão **History** no canto da mesa. Ele abre a lista das últimas ações da partida, montada inteiramente pelo serviço de monitoramento:
+
+![O painel History aberto no canto da mesa, listando que João rolou para a ordem dos turnos e que a partida começou, ao lado do placar da ordem](./tela-historico.webp)
+
+O "Someone start_match" na última linha mostra bem de onde a lista vem: o início da partida é publicado pela engine, sem nenhum jogador como autor, e o painel mostra o evento do jeito que ele passou pelo tópico.
+
 Para mim, essa foi a lição mais interessante da etapa: com os eventos já fluindo pelo Kafka, criar uma feature nova virou uma questão de **ler o que já existe** de um jeito diferente, sem mexer em uma linha da engine. E isso só funciona por causa da arquitetura da parte 3.
 
-Com isso, termina a história de como o Here To Slay chegou até aqui. Ainda tem coisa na lista, a começar pela recuperação das partidas que ficou faltando. Quando ela sair, vira assunto para a próxima parte.
+Foi também nessa etapa que a tela do jogo mudou pela primeira vez desde a parte 2. A mesa clara com o cenário em pixel art deu lugar a uma mesa escura, o turno virou um selo no topo, e o histórico ganhou espaço ao lado do baralho e do descarte. A lógica por baixo era a mesma, só a cara mudou:
+
+![A mesa na versão de julho de 2026: fundo escuro, baralho e descarte no alto, o botão History, os dados da rolagem de ordem e o placar Turn Order com João tendo tirado 6](./tela-ordem-nova.webp)
+
+A mesa também ganhou o que faltava na parte 2. No alto ficam os **monstros**, cada um com os requisitos para ser atacado, e embaixo deles o grupo do jogador, com o líder à esquerda e uma área para arrastar os heróis da mão. No canto, os três losangos são os pontos de ação do turno, e a carta de **modificador** na mão já avisa quando pode ser jogada: durante uma janela de modificador, depois de uma rolagem.
+
+![A mesa na versão de julho: três monstros no alto com os seus requisitos, o líder Bard à esquerda, a área para arrastar heróis, três pontos de ação no canto e a mão com dois heróis e um modificador de +4](./tela-mesa-nova.webp)
+
+A janela de desafio e o duelo seguem a mesma lógica da parte 2, só com a cara nova. Aqui a Maria jogou o Wildshot, e o João vê o botão de desafio com 6,5 segundos para decidir:
+
+![A janela de desafio na versão de julho: o Wildshot que a Maria jogou à esquerda e, no meio, o botão de desafio com 6,5 segundos restantes](./tela-janela-desafio-nova.webp)
+
+No duelo, verde contra vermelho, o João já rolou 9, e a Maria ainda vai rolar. Repare na mão dela: um modificador de +3/-1, que poderia mudar esse resultado na janela de modificador que abre depois da rolagem.
+
+![O duelo na versão de julho: Maria, em verde, ainda com os dados para rolar, contra João, em vermelho, que tirou 9, com a mão da Maria embaixo mostrando três heróis e um modificador de +3 ou -1](./tela-duelo-novo.webp)
+
+## Depois da disciplina
+
+Com o fim do semestre, o trabalho estava entregue, e o Here To Slay podia ter parado por aqui. Só que o objetivo desde a [parte 1](/pt/textos/here-to-slay-parte-1/) nunca foi passar numa disciplina: era jogar com os meus amigos. E, para isso, ainda faltava muita coisa. Várias cartas do jogo base não existiam ou não seguiam as regras oficiais, a interface só fazia sentido para quem estava jogando a vez, o jogo só rodava na minha máquina, e não tinha como jogar sozinho.
+
+No fim de outubro de 2026 eu voltei ao projeto com uma meta nova: transformar o trabalho num jogo de verdade. As próximas partes contam esse caminho. A parte 5 é sobre a maior refatoração do projeto: reescrever os efeitos de todas as 68 cartas.
