@@ -1,0 +1,88 @@
+---
+import { CONTACT } from '../lib/site';
+import type { Lang } from '../lib/i18n';
+import { t } from '../lib/ui-strings';
+
+interface Props {
+  lang: Lang;
+  variant: 'hero' | 'footer';
+}
+
+const { lang, variant } = Astro.props;
+---
+
+<ul class:list={['contacts', variant]}>
+  <li>
+    <a class="primary" href={`mailto:${CONTACT.email}`}>
+      <span aria-hidden="true">✉</span>
+      {t(lang, 'contactEmail')}
+    </a>
+  </li>
+  <li><a href={CONTACT.github} rel="me">GitHub</a></li>
+  <li><a href={CONTACT.linkedin} rel="me">LinkedIn</a></li>
+  <li>
+    <a href={`/cv/cv-${lang}.pdf`} download>
+      <span aria-hidden="true">↓</span>
+      {t(lang, 'contactCv')}
+    </a>
+  </li>
+</ul>
+
+<style>
+  .contacts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .hero a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    padding: 0.7em 1.15em;
+    border-radius: 14px;
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform var(--duration-fast) ease;
+  }
+
+  .hero a:hover {
+    transform: translateY(-2px);
+  }
+
+  /* Botão principal "afunda" ao clicar, como um botão de console. */
+  .hero a.primary {
+    background: var(--color-accent);
+    color: #fff;
+    box-shadow: 0 6px 0 var(--color-accent-dark);
+  }
+
+  .hero a.primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 7px 0 var(--color-accent-dark);
+  }
+
+  .hero a.primary:active {
+    transform: translateY(4px);
+    box-shadow: 0 2px 0 var(--color-accent-dark);
+  }
+
+  .footer {
+    gap: var(--space-4);
+  }
+
+  .footer a {
+    color: var(--color-ink-soft);
+    font-size: var(--text-sm);
+  }
+
+  .footer a:hover {
+    color: var(--color-accent);
+  }
+</style>

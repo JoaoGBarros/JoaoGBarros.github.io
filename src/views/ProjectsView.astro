@@ -1,0 +1,57 @@
+---
+import ProjectCard from '../components/ProjectCard.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getProjects, getTextos } from '../lib/collections';
+import { sectionPath, type Lang } from '../lib/i18n';
+import { textCountMap } from '../lib/lookups';
+import { t } from '../lib/ui-strings';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const [projects, textos] = await Promise.all([getProjects(lang), getTextos(lang)]);
+const counts = textCountMap(textos);
+---
+
+<BaseLayout
+  lang={lang}
+  title={`${t(lang, 'projectsTitle')} · João Gabriel`}
+  description={t(lang, 'projectsIntro')}
+  path={sectionPath(lang, 'projects')}
+>
+  <div class="container">
+    <header class="page-head">
+      <h1>{t(lang, 'projectsTitle')}</h1>
+      <p>{t(lang, 'projectsIntro')}</p>
+    </header>
+    <div class="grid">
+      {
+        projects.map((project, index) => (
+          <div class:list={{ first: index === 0 }}>
+            <ProjectCard lang={lang} project={project} size={index === 0 ? 'large' : 'small'} textCount={counts.get(project.slug) ?? 0} />
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .grid {
+    display: grid;
+    gap: var(--space-4);
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
+  }
+
+  .grid > div {
+    display: grid;
+  }
+
+  @media (min-width: 48rem) {
+    .first {
+      grid-column: span 2;
+    }
+  }
+</style>

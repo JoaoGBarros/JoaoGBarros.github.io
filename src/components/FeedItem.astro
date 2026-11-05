@@ -1,0 +1,83 @@
+---
+import { Image } from 'astro:assets';
+import { render } from 'astro:content';
+import type { Post } from '../lib/collections';
+import { contentLangAttr, formatDate, sectionPath, type Lang, type Localized } from '../lib/i18n';
+import { t } from '../lib/ui-strings';
+
+interface Props {
+  lang: Lang;
+  post: Localized<Post>;
+  projectTitles: ReadonlyMap<string, string>;
+  /** Render the date as a link to the post's own page. */
+  linkToPost?: boolean;
+}
+
+const { lang, post, projectTitles, linkToPost = true } = Astro.props;
+const data = post.entry.data;
+const { Content } = await render(post.entry);
+const href = sectionPath(lang, 'feed', post.slug);
+const project = data.projeto ? projectTitles.get(data.projeto) : undefined;
+const iso = data.data.toISOString().slice(0, 10);
+---
+
+<article class="post">
+  <header>
+    {
+      linkToPost ? (
+        <a class="date" href={href} aria-label={`${t(lang, 'permalink')}: ${formatDate(data.data, lang)}`}>
+          <time datetime={iso}>{formatDate(data.data, lang)}</time>
+        </a>
+      ) : (
+        <time class="date" datetime={iso}>{formatDate(data.data, lang)}</time>
+      )
+    }
+    {project && data.projeto && <a class="chip" href={sectionPath(lang, 'projects', data.projeto)}>{project}</a>}
+    {data.tags.map((tag) => <span class="chip">#{tag}</span>)}
+  </header>
+  <div class="prose" lang={contentLangAttr(lang, post.lang)}>
+    <Content />
+  </div>
+  {data.imagem && <Image src={data.imagem} alt={data.imagemAlt ?? ''} class="media" widths={[480, 800]} sizes="(min-width: 48rem) 42rem, 100vw" />}
+  {data.link && <a class="link" href={data.link} rel="noopener">{new URL(data.link).host} ↗</a>}
+</article>
+
+<style>
+  .post {
+    display: grid;
+    gap: var(--space-3);
+    padding: var(--space-5);
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    max-width: var(--width-prose);
+  }
+
+  header {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    align-items: center;
+  }
+
+  .date {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-muted);
+    text-decoration: none;
+    margin-right: var(--space-2);
+  }
+
+  a.date:hover {
+    color: var(--color-accent);
+  }
+
+  .media {
+    border-radius: var(--radius-md);
+  }
+
+  .link {
+    font-size: var(--text-sm);
+    font-weight: 600;
+  }
+</style>

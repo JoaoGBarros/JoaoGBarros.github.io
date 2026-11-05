@@ -1,0 +1,67 @@
+---
+import { otherLang, switchLangPath, type Lang } from '../lib/i18n';
+import { t } from '../lib/ui-strings';
+
+interface Props {
+  lang: Lang;
+  path: string;
+}
+
+const { lang, path } = Astro.props;
+const target = otherLang(lang);
+---
+
+<a
+  class="lang-switch"
+  href={switchLangPath(path, target)}
+  hreflang={target}
+  lang={target}
+  data-lang={target}
+>
+  <span class="current" aria-hidden="true">{lang.toUpperCase()}</span>
+  <span class="sep" aria-hidden="true">/</span>
+  <span class="target">{t(lang, 'switchLangShort')}</span>
+  <span class="visually-hidden">— {t(lang, 'switchLang')}</span>
+</a>
+
+<script>
+  // Remember the explicit choice so `/` sends the visitor to it next time.
+  document.querySelectorAll<HTMLAnchorElement>('a[data-lang]').forEach((link) => {
+    link.addEventListener('click', () => {
+      try {
+        localStorage.setItem('lang', link.dataset.lang ?? '');
+      } catch {
+        // Storage can be disabled (private mode); navigation still works.
+      }
+    });
+  });
+</script>
+
+<style>
+  .lang-switch {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3em;
+    padding: 0.55rem 0.9rem;
+    border-radius: 999px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-muted);
+    text-decoration: none;
+    transition: border-color var(--duration-fast) ease;
+  }
+
+  .current {
+    color: var(--color-ink);
+  }
+
+  .target {
+    color: var(--color-pop);
+  }
+
+  .lang-switch:hover {
+    border-color: var(--color-ink-soft);
+  }
+</style>

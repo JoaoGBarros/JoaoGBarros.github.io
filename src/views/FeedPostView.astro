@@ -1,0 +1,51 @@
+---
+import FallbackNotice from '../components/FallbackNotice.astro';
+import FeedItem from '../components/FeedItem.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getFeed, getProjects } from '../lib/collections';
+import { formatDate, sectionPath, type Lang } from '../lib/i18n';
+import { projectTitleMap } from '../lib/lookups';
+import { t } from '../lib/ui-strings';
+
+interface Props {
+  lang: Lang;
+  slug: string;
+}
+
+const { lang, slug } = Astro.props;
+const [projects, feed] = await Promise.all([getProjects(lang), getFeed(lang)]);
+const post = feed.find((p) => p.slug === slug);
+if (!post) throw new Error(`Post "${slug}" não encontrado.`);
+
+const title = `${t(lang, 'feedPostTitle')} ${formatDate(post.entry.data.data, lang)}`;
+const description = (post.entry.body ?? '').replace(/\s+/g, ' ').trim().slice(0, 160);
+---
+
+<BaseLayout
+  lang={lang}
+  title={`${title} · João Gabriel`}
+  description={description || t(lang, 'feedIntro')}
+  path={sectionPath(lang, 'feed', slug)}
+  ogType="article"
+>
+  <div class="container wrap">
+    <a class="back" href={sectionPath(lang, 'feed')}>← {t(lang, 'feedTitle')}</a>
+    <h1 class="visually-hidden">{title}</h1>
+    <FallbackNotice lang={lang} contentLang={post.lang} />
+    <FeedItem lang={lang} post={post} projectTitles={projectTitleMap(projects)} linkToPost={false} />
+  </div>
+</BaseLayout>
+
+<style>
+  .wrap {
+    display: grid;
+    gap: var(--space-4);
+    justify-items: start;
+    padding-top: var(--space-7);
+  }
+
+  .back {
+    font-size: var(--text-sm);
+    font-weight: 600;
+  }
+</style>

@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 640" width="1180" height="640" role="img" aria-label="Here To Slay match state machine before Kafka">
+<title>Here To Slay match state machine before Kafka</title>
+<defs><marker id="arrow-2b3a55" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2b3a55"/></marker><marker id="tri-2b3a55" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" orient="auto-start-reverse"><path d="M1,1 L11,6 L1,11 z" fill="#ffffff" stroke="#2b3a55" stroke-width="1.4"/></marker><marker id="dia-2b3a55" viewBox="0 0 14 10" refX="13" refY="5" markerWidth="14" markerHeight="10" orient="auto-start-reverse"><path d="M1,5 L7,1 L13,5 L7,9 z" fill="#ffffff" stroke="#2b3a55" stroke-width="1.4"/></marker><marker id="arrow-cf3439" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#cf3439"/></marker><marker id="tri-cf3439" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" orient="auto-start-reverse"><path d="M1,1 L11,6 L1,11 z" fill="#ffffff" stroke="#cf3439" stroke-width="1.4"/></marker><marker id="dia-cf3439" viewBox="0 0 14 10" refX="13" refY="5" markerWidth="14" markerHeight="10" orient="auto-start-reverse"><path d="M1,5 L7,1 L13,5 L7,9 z" fill="#ffffff" stroke="#cf3439" stroke-width="1.4"/></marker><marker id="arrow-5d6370" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5d6370"/></marker><marker id="tri-5d6370" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" orient="auto-start-reverse"><path d="M1,1 L11,6 L1,11 z" fill="#ffffff" stroke="#5d6370" stroke-width="1.4"/></marker><marker id="dia-5d6370" viewBox="0 0 14 10" refX="13" refY="5" markerWidth="14" markerHeight="10" orient="auto-start-reverse"><path d="M1,5 L7,1 L13,5 L7,9 z" fill="#ffffff" stroke="#5d6370" stroke-width="1.4"/></marker><marker id="arrow-1c1f26" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c1f26"/></marker><marker id="tri-1c1f26" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" orient="auto-start-reverse"><path d="M1,1 L11,6 L1,11 z" fill="#ffffff" stroke="#1c1f26" stroke-width="1.4"/></marker><marker id="dia-1c1f26" viewBox="0 0 14 10" refX="13" refY="5" markerWidth="14" markerHeight="10" orient="auto-start-reverse"><path d="M1,5 L7,1 L13,5 L7,9 z" fill="#ffffff" stroke="#1c1f26" stroke-width="1.4"/></marker></defs>
+<rect width="1180" height="640" rx="24" fill="#f1f2f4"/>
+<text x="40" y="52" font-family="Rubik, 'Segoe UI', system-ui, sans-serif" font-size="22" font-weight="800" fill="#1c1f26" text-anchor="start">The match as a state machine</text>
+<circle cx="52" cy="143" r="9" fill="#1c1f26"/>
+<polyline points="61,143 100,143" fill="none" stroke="#2b3a55" stroke-width="1.8" marker-end="url(#arrow-2b3a55)"/>
+<rect x="45.2" y="169" width="69.6" height="20" rx="6" fill="#ffffff" opacity="0.94"/>
+<text x="80" y="182" font-family="Rubik, 'Segoe UI', system-ui, sans-serif" font-size="11.5" font-weight="500" fill="#5d6370" text-anchor="middle">new match</text>
+<rect x="100" y="120" width="200" height="46" rx="23" fill="#ffffff" stroke="#2b3a55" stroke-width="1.6"/>
+<text x="200.0" y="148" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="12" font-weight="700" fill="#2b3a55" text-anchor="middle">ORDER_SELECTION</text>
+<rect x="380" y="120" width="230" height="46" rx="23" fill="#ffffff" stroke="#2b3a55" stroke-width="1.6"/>
+<text x="495.0" y="148" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="12" font-weight="700" fill="#2b3a55" text-anchor="middle">PARTY_LEADER_SELECTION</text>
+<rect x="700" y="120" width="200" height="46" rx="23" fill="#2b3a55" stroke="#2b3a55" stroke-width="1.6"/>
+<text x="800.0" y="148" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">GAMEPLAY</text>
+<polyline points="300,143 380,143" fill="none" stroke="#2b3a55" stroke-width="1.8" marker-end="url(#arrow-2b3a55)"/>
+<rect x="286.0" y="79" width="108.0" height="36" rx="6" fill="#ffffff" opacity="0.94"/>
+<text x="340" y="92" font-family="Rubik, 'Segoe UI', system-ui, sans-serif" font-size="11.5" font-weight="500" fill="#2b3a55" text-anchor="middle">everyone rolled</text>
+<text x="340" y="108" font-family="Rubik, 'Segoe UI', system-ui, sans-serif" font-size="11.5" font-weight="500" fill="#2b3a55" text-anchor="middle">for turn order</text>
+<polyline points="610,143 700,143" fill="none" stroke="#2b3a55" stroke-width="1.8" marker-end="url(#arrow-2b3a55)"/>
+<rect x="601.0" y="79" width="108.0" height="36" rx="6" fill="#ffffff" opacity="0.94"/>
+<text x="655" y="92" font-family="Rubik, 'Segoe UI', system-ui, sans-serif" font-size="11.5" font-weight="500" fill="#2b3a55" text-anchor="middle">everyone picked</text>
+<text x="655" y="108" font-family="Rubik, 'Segoe UI', system-ui, sans-serif" font-size="11.5" font-weight="500" fill="#2b3a55" text-anchor="middle">a leader</text>
+<rect x="100" y="300" width="200" height="46" rx="23" fill="#ffffff" stroke="#2b3a55" stroke-width="1.6"/>
+<text x="200.0" y="328" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="12" font-weight="700" fill="#2b3a55" text-anchor="middle">CHALLENGE_ROLL</text>
+<rect x="420" y="300" width="210" height="46" rx="23" fill="#ffffff" stroke="#2b3a55" stroke-width="1.6"/>
+<text x="525.0" y="328" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="12" font-weight="700" fill="#2b3a55" text-anchor="middle">CHALLENGE_WINDOW</text>
+<rect x="760" y="300" width="220" height="46" rx="23" fill="#ffffff" stroke="#2b3a55" stroke-width="1.6"/>
+<text x="870.0" y="328" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="12" font-weight="700" fill="#2b3a55" text-anchor="middle">WAITING_HERO_ROLL</text>
+<polyline points="740,166 740,236 525,236 525,300" fill="none" stroke="#2b3a55" stroke-width="1.8" marker-end="url(#arrow-2b3a55)"/>
+<rect x="539.0" y="249" width="172.0" height="20" rx="6" fill="#ffffff" opacity="0.94"/>
+<text x="625" y="262" font-family="Rubik, 'Segoe UI', system-ui, sans-serif" font-size="11.5" font-weight="500" fill="#2b3a55" text-anchor="middle">plays a hero (5 s window)</text>
+<polyline points="420,315 300,315" fill="none" stroke="#2b3a55" stroke-width="1.8" marker-end="url(#arrow-2b3a55)"/>
+<rect x="296.4" y="284" width="127.2" height="20" rx="6" fill="#ffffff" opacity="0.94"/>
+<text x="360" y="297" font-family="Rubik, 'Segoe UI', system-ui, sans-serif" font-size="11.5" font-weight="500" fill="#2b3a55" text-anchor="middle">someone challenges</text>
+<polyline points="300,335 420,335" fill="none" stroke="#2b3a55" stroke-width="1.8" marker-end="url(#arrow-2b3a55)"/>
+<rect x="309.2" y="359" width="101.6" height="36" rx="6" fill="#ffffff" opacity="0.94"/>
+<text x="360" y="372" font-family="Rubik, 'Segoe UI', system-ui, sans-serif" font-size="11.5" font-weight="500" fill="#2b3a55" text-anchor="middle">hero wins:</text>
+<text x="360" y="388" font-family="Rubik, 'Segoe UI', system-ui, sans-serif" font-size="11.5" font-weight="500" fill="#2b3a55" text-anchor="middle">window reopens</text>
+<polyline points="200,300 200,196 716,196 716,166" fill="none" stroke="#2b3a55" stroke-width="1.8" marker-end="url(#arrow-2b3a55)"/>
+<rect x="142.8" y="225" width="114.4" height="36" rx="6" fill="#ffffff" opacity="0.94"/>
+<text x="200" y="238" font-family="Rubik, 'Segoe UI', system-ui, sans-serif" font-size="11.5" font-weight="500" fill="#2b3a55" text-anchor="middle">challenger wins:</text>
+<text x="200" y="254" font-family="Rubik, 'Segoe UI', system-ui, sans-serif" font-size="11.5" font-weight="500" fill="#2b3a55" text-anchor="middle">hero discarded</text>
+<polyline points="630,323 760,323" fill="none" stroke="#2b3a55" stroke-width="1.8" marker-end="url(#arrow-2b3a55)"/>
+<rect x="647.4" y="294" width="95.2" height="20" rx="6" fill="#ffffff" opacity="0.94"/>
+<text x="695" y="307" font-family="Rubik, 'Segoe UI', system-ui, sans-serif" font-size="11.5" font-weight="500" fill="#2b3a55" text-anchor="middle">time runs out</text>
+<polyline points="860,166 860,300" fill="none" stroke="#2b3a55" stroke-width="1.8" marker-end="url(#arrow-2b3a55)"/>
+<rect x="887.4" y="215" width="95.2" height="36" rx="6" fill="#ffffff" opacity="0.94"/>
+<text x="935" y="228" font-family="Rubik, 'Segoe UI', system-ui, sans-serif" font-size="11.5" font-weight="500" fill="#2b3a55" text-anchor="middle">uses a hero's</text>
+<text x="935" y="244" font-family="Rubik, 'Segoe UI', system-ui, sans-serif" font-size="11.5" font-weight="500" fill="#2b3a55" text-anchor="middle">ability</text>
+<polyline points="980,323 1080,323 1080,143 900,143" fill="none" stroke="#2b3a55" stroke-width="1.8" marker-end="url(#arrow-2b3a55)"/>
+<rect x="1040.6" y="237" width="88.8" height="36" rx="6" fill="#ffffff" opacity="0.94"/>
+<text x="1085" y="250" font-family="Rubik, 'Segoe UI', system-ui, sans-serif" font-size="11.5" font-weight="500" fill="#2b3a55" text-anchor="middle">no target or</text>
+<text x="1085" y="266" font-family="Rubik, 'Segoe UI', system-ui, sans-serif" font-size="11.5" font-weight="500" fill="#2b3a55" text-anchor="middle">roll failed</text>
+<polyline points="870,346 870,420" fill="none" stroke="#2b3a55" stroke-width="1.8"/>
+<polyline points="655,420 1065,420" fill="none" stroke="#2b3a55" stroke-width="1.8"/>
+<polyline points="655,420 655,470" fill="none" stroke="#2b3a55" stroke-width="1.8" marker-end="url(#arrow-2b3a55)"/>
+<rect x="560" y="470" width="190" height="46" rx="23" fill="#ffffff" stroke="#2b3a55" stroke-width="1.6"/>
+<text x="655.0" y="498" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="12" font-weight="700" fill="#2b3a55" text-anchor="middle">SELECTING_CARDS</text>
+<polyline points="860,420 860,470" fill="none" stroke="#2b3a55" stroke-width="1.8" marker-end="url(#arrow-2b3a55)"/>
+<rect x="765" y="470" width="190" height="46" rx="23" fill="#ffffff" stroke="#2b3a55" stroke-width="1.6"/>
+<text x="860.0" y="498" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="12" font-weight="700" fill="#2b3a55" text-anchor="middle">SELECTING_HAND_CARDS</text>
+<polyline points="1065,420 1065,470" fill="none" stroke="#2b3a55" stroke-width="1.8" marker-end="url(#arrow-2b3a55)"/>
+<rect x="970" y="470" width="190" height="46" rx="23" fill="#ffffff" stroke="#2b3a55" stroke-width="1.6"/>
+<text x="1065.0" y="498" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="12" font-weight="700" fill="#2b3a55" text-anchor="middle">SELECTING_PLAYER</text>
+<rect x="891.8" y="395" width="146.4" height="20" rx="6" fill="#ffffff" opacity="0.94"/>
+<text x="965" y="408" font-family="Rubik, 'Segoe UI', system-ui, sans-serif" font-size="11.5" font-weight="500" fill="#2b3a55" text-anchor="middle">effect needs a target</text>
+<polyline points="655,516 655,560" fill="none" stroke="#2b3a55" stroke-width="1.8"/>
+<polyline points="860,516 860,560" fill="none" stroke="#2b3a55" stroke-width="1.8"/>
+<polyline points="1065,516 1065,560" fill="none" stroke="#2b3a55" stroke-width="1.8"/>
+<polyline points="1065,560 655,560" fill="none" stroke="#2b3a55" stroke-width="1.8"/>
+<polyline points="655,560 520,560" fill="none" stroke="#2b3a55" stroke-width="1.8" marker-end="url(#arrow-2b3a55)"/>
+<rect x="360" y="537" width="160" height="46" rx="23" fill="#f1f2f4" stroke="#2b3a55" stroke-width="1.6" stroke-dasharray="6 5"/>
+<text x="440.0" y="565" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="12" font-weight="700" fill="#2b3a55" text-anchor="middle">GAMEPLAY</text>
+<rect x="699.6" y="571" width="120.8" height="20" rx="6" fill="#ffffff" opacity="0.94"/>
+<text x="760" y="584" font-family="Rubik, 'Segoe UI', system-ui, sans-serif" font-size="11.5" font-weight="500" fill="#2b3a55" text-anchor="middle">targets confirmed</text>
+<text x="40" y="452" font-family="Rubik, 'Segoe UI', system-ui, sans-serif" font-size="12" font-weight="600" fill="#5d6370" text-anchor="start">Declared in the enum, not used yet</text>
+<rect x="40" y="470" width="230" height="46" rx="23" fill="#f1f2f4" stroke="#5d6370" stroke-width="1.6" stroke-dasharray="6 5"/>
+<text x="155.0" y="498" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="12" font-weight="700" fill="#5d6370" text-anchor="middle">APPLYING_CARD_EFFECTS</text>
+<rect x="40" y="537" width="150" height="46" rx="23" fill="#f1f2f4" stroke="#5d6370" stroke-width="1.6" stroke-dasharray="6 5"/>
+<text x="115.0" y="565" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="12" font-weight="700" fill="#5d6370" text-anchor="middle">FINISHED</text>
+</svg>

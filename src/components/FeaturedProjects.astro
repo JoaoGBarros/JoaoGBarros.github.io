@@ -1,0 +1,75 @@
+---
+import type { Projeto } from '../lib/collections';
+import type { Lang, Localized } from '../lib/i18n';
+import ProjectCard from './ProjectCard.astro';
+
+interface Props {
+  lang: Lang;
+  projects: Localized<Projeto>[];
+  textCounts: ReadonlyMap<string, number>;
+}
+
+const { lang, projects, textCounts } = Astro.props;
+
+// Asymmetric composition: the first code project leads, the next two sit beside it,
+// and a non-code project (e.g. the student union) spans a wide band below.
+const code = projects.filter((p) => p.entry.data.tipo === 'codigo');
+const nonCode = projects.filter((p) => p.entry.data.tipo === 'nao-codigo');
+const [lead, ...rest] = code;
+const side = rest.slice(0, 2);
+const band = [...rest.slice(2), ...nonCode].slice(0, 2);
+const count = (slug: string) => textCounts.get(slug) ?? 0;
+---
+
+{
+  lead && (
+    <div class="bento">
+      <div class="lead">
+        <ProjectCard lang={lang} project={lead} size="large" textCount={count(lead.slug)} />
+      </div>
+      {side.map((project) => (
+        <ProjectCard lang={lang} project={project} size="small" textCount={count(project.slug)} />
+      ))}
+      {band.map((project) => (
+        <div class="band">
+          <ProjectCard lang={lang} project={project} size="wide" textCount={count(project.slug)} />
+        </div>
+      ))}
+    </div>
+  )
+}
+
+<style>
+  .bento {
+    display: grid;
+    gap: var(--space-4);
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 48rem) {
+    .bento {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .lead {
+      grid-column: 1 / -1;
+      display: grid;
+    }
+
+    .band {
+      grid-column: 1 / -1;
+      display: grid;
+    }
+  }
+
+  /* Em telas largas: o principal um pouco maior e os outros dois ao lado, na mesma linha. */
+  @media (min-width: 64rem) {
+    .bento {
+      grid-template-columns: 1.35fr 1fr 1fr;
+    }
+
+    .lead {
+      grid-column: auto;
+    }
+  }
+</style>

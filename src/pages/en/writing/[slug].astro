@@ -1,0 +1,13 @@
+---
+import TextView from '../../../views/TextView.astro';
+import { getAllSlugs } from '../../../lib/collections';
+
+export async function getStaticPaths() {
+  const slugs = await getAllSlugs('textos');
+  return slugs.map((slug) => ({ params: { slug } }));
+}
+
+const { slug } = Astro.params;
+---
+
+<TextView lang="en" slug={slug} />

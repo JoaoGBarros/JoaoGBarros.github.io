@@ -1,0 +1,45 @@
+---
+import FeedItem from '../components/FeedItem.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getFeed, getProjects } from '../lib/collections';
+import { sectionPath, type Lang } from '../lib/i18n';
+import { projectTitleMap } from '../lib/lookups';
+import { t } from '../lib/ui-strings';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const [projects, feed] = await Promise.all([getProjects(lang), getFeed(lang)]);
+const titles = projectTitleMap(projects);
+---
+
+<BaseLayout
+  lang={lang}
+  title={`${t(lang, 'feedTitle')} · João Gabriel`}
+  description={t(lang, 'feedIntro')}
+  path={sectionPath(lang, 'feed')}
+>
+  <div class="container">
+    <header class="page-head">
+      <h1>{t(lang, 'feedTitle')}</h1>
+      <p>{t(lang, 'feedIntro')}</p>
+    </header>
+    {feed.length === 0 && <p class="empty">{t(lang, 'noFeed')}</p>}
+    <div class="feed">
+      {feed.map((post) => <FeedItem lang={lang} post={post} projectTitles={titles} />)}
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .feed {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .empty {
+    color: var(--color-muted);
+  }
+</style>

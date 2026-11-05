@@ -1,0 +1,57 @@
+/*
+ * Design tokens — direção "Advance · Platinum".
+ * Inspirada no Game Boy Advance prata: fundo platina, cartões brancos bem arredondados,
+ * azul-marinho como acento, um vermelho pontual e pixel (Silkscreen) só em rótulos pequenos.
+ * Fontes: Rubik (títulos e texto) + Silkscreen (rótulos, datas, metadados).
+ */
+:root {
+  --font-display: 'Rubik Variable', 'Segoe UI', system-ui, sans-serif;
+  --font-body: 'Rubik Variable', 'Segoe UI', system-ui, sans-serif;
+  --font-pixel: 'Silkscreen', 'Courier New', monospace;
+
+  --color-paper: #f1f2f4;
+  --color-surface: #ffffff;
+  --color-surface-sunk: #e8eaee;
+  --color-ink: #1c1f26;
+  --color-ink-soft: #3c4250;
+  --color-muted: #5d6370;
+  --color-line: #e1e3e8;
+  --color-accent: #2b3a55;
+  --color-accent-dark: #141c2b;
+  --color-accent-soft: #e3e8f2;
+  --color-pop: #cf3439;
+  --color-focus: #e5484d;
+
+  --text-xs: 0.78rem;
+  --text-sm: 0.9rem;
+  --text-base: clamp(1rem, 0.96rem + 0.2vw, 1.075rem);
+  --text-lg: clamp(1.15rem, 1.05rem + 0.4vw, 1.3rem);
+  --text-xl: clamp(1.5rem, 1.25rem + 1vw, 1.9rem);
+  --text-2xl: clamp(2.1rem, 1.5rem + 2.6vw, 3.3rem);
+  --text-hero: clamp(2.5rem, 1.7rem + 3.6vw, 4.25rem);
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-section: clamp(3rem, 2rem + 3vw, 5rem);
+
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+
+  --shadow-card: 0 1px 2px rgb(28 31 38 / 4%);
+  --shadow-lift: 0 16px 34px rgb(28 31 38 / 10%);
+  --shadow-photo: 0 18px 40px rgb(43 58 85 / 22%);
+
+  --width-content: 70rem;
+  --width-prose: 42rem;
+
+  --duration-fast: 150ms;
+  --duration-normal: 220ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}

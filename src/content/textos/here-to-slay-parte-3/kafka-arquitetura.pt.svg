@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 640" width="1180" height="640" role="img" aria-label="Arquitetura do Here To Slay com Kafka: clientes passam pelo Nginx até os gateways, e gateway, lobby e engine só conversam por tópicos num cluster de 3 brokers">
+<title>Arquitetura do Here To Slay com Kafka: clientes passam pelo Nginx até os gateways, e gateway, lobby e engine só conversam por tópicos num cluster de 3 brokers</title>
+<defs><marker id="arrow-2b3a55" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2b3a55"/></marker><marker id="tri-2b3a55" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" orient="auto-start-reverse"><path d="M1,1 L11,6 L1,11 z" fill="#ffffff" stroke="#2b3a55" stroke-width="1.4"/></marker><marker id="dia-2b3a55" viewBox="0 0 14 10" refX="13" refY="5" markerWidth="14" markerHeight="10" orient="auto-start-reverse"><path d="M1,5 L7,1 L13,5 L7,9 z" fill="#ffffff" stroke="#2b3a55" stroke-width="1.4"/></marker><marker id="arrow-cf3439" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#cf3439"/></marker><marker id="tri-cf3439" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" orient="auto-start-reverse"><path d="M1,1 L11,6 L1,11 z" fill="#ffffff" stroke="#cf3439" stroke-width="1.4"/></marker><marker id="dia-cf3439" viewBox="0 0 14 10" refX="13" refY="5" markerWidth="14" markerHeight="10" orient="auto-start-reverse"><path d="M1,5 L7,1 L13,5 L7,9 z" fill="#ffffff" stroke="#cf3439" stroke-width="1.4"/></marker><marker id="arrow-5d6370" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5d6370"/></marker><marker id="tri-5d6370" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" orient="auto-start-reverse"><path d="M1,1 L11,6 L1,11 z" fill="#ffffff" stroke="#5d6370" stroke-width="1.4"/></marker><marker id="dia-5d6370" viewBox="0 0 14 10" refX="13" refY="5" markerWidth="14" markerHeight="10" orient="auto-start-reverse"><path d="M1,5 L7,1 L13,5 L7,9 z" fill="#ffffff" stroke="#5d6370" stroke-width="1.4"/></marker><marker id="arrow-1c1f26" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c1f26"/></marker><marker id="tri-1c1f26" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" orient="auto-start-reverse"><path d="M1,1 L11,6 L1,11 z" fill="#ffffff" stroke="#1c1f26" stroke-width="1.4"/></marker><marker id="dia-1c1f26" viewBox="0 0 14 10" refX="13" refY="5" markerWidth="14" markerHeight="10" orient="auto-start-reverse"><path d="M1,5 L7,1 L13,5 L7,9 z" fill="#ffffff" stroke="#1c1f26" stroke-width="1.4"/></marker></defs>
+<rect width="1180" height="640" rx="24" fill="#f1f2f4"/>
+<text x="40" y="52" font-family="Rubik, 'Segoe UI', system-ui, sans-serif" font-size="22" font-weight="800" fill="#1c1f26" text-anchor="start">Depois do Kafka: serviços que só conversam por tópicos</text>
+<rect x="40" y="250" width="150" height="84" rx="14" fill="#ffffff" stroke="#2b3a55" stroke-width="1.8"/>
+<text x="115" y="284" font-family="Rubik, 'Segoe UI', system-ui, sans-serif" font-size="14" font-weight="700" fill="#1c1f26" text-anchor="middle">Clientes</text>
+<text x="115" y="306" font-family="Rubik, 'Segoe UI', system-ui, sans-serif" font-size="11.5" font-weight="400" fill="#5d6370" text-anchor="middle">Electron + React</text>
+<rect x="225" y="250" width="150" height="84" rx="14" fill="#ffffff" stroke="#2b3a55" stroke-width="1.8"/>
+<text x="300" y="284" font-family="Rubik, 'Segoe UI', system-ui, sans-serif" font-size="14" font-weight="700" fill="#1c1f26" text-anchor="middle">Nginx</text>
+<text x="300" y="306" font-family="Rubik, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="400" fill="#5d6370" text-anchor="middle">least_conn · porta 8889</text>
+<polyline points="190,292 225,292" fill="none" stroke="#2b3a55" stroke-width="1.8" marker-end="url(#arrow-2b3a55)"/>
+<rect x="410" y="150" width="190" height="330" rx="18" fill="#ffffff" stroke="#2b3a55" stroke-width="1.8"/>
+<text x="505" y="180" font-family="Rubik, 'Segoe UI', system-ui, sans-serif" font-size="14" font-weight="700" fill="#1c1f26" text-anchor="middle">Gateway ×2</text>
+<text x="505" y="200" font-family="Rubik, 'Segoe UI', system-ui, sans-serif" font-size="11.5" font-weight="400" fill="#5d6370" text-anchor="middle">WebSocket ⇄ Kafka</text>
+<rect x="432" y="226" width="146" height="30" rx="8" fill="#e3e8f2" stroke="none" stroke-width="1.5"/>
+<text x="505" y="246" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="11.5" font-weight="600" fill="#2b3a55" text-anchor="middle">gateway-1</text>
+<rect x="432" y="266" width="146" height="30" rx="8" fill="#e3e8f2" stroke="none" stroke-width="1.5"/>
+<text x="505" y="286" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="11.5" font-weight="600" fill="#2b3a55" text-anchor="middle">gateway-2</text>
+<polyline points="375,292 410,292" fill="none" stroke="#2b3a55" stroke-width="1.8" marker-end="url(#arrow-2b3a55)"/>
+<rect x="650" y="96" width="300" height="430" rx="20" fill="#2b3a55" stroke="none" stroke-width="1.5"/>
+<text x="670" y="126" font-family="Rubik, 'Segoe UI', system-ui, sans-serif" font-size="13.5" font-weight="700" fill="#ffffff" text-anchor="start">Cluster Kafka · 3 brokers · KRaft</text>
+<text x="670" y="146" font-family="Rubik, 'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="400" fill="#c9d1e3" text-anchor="start">3 partições e 3 réplicas por tópico</text>
+<rect x="670" y="160" width="80" height="26" rx="8" fill="#3c4d6e" stroke="none" stroke-width="1.5"/>
+<text x="710" y="178" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="10.5" font-weight="400" fill="#ffffff" text-anchor="middle">broker-1</text>
+<rect x="760" y="160" width="80" height="26" rx="8" fill="#3c4d6e" stroke="none" stroke-width="1.5"/>
+<text x="800" y="178" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="10.5" font-weight="400" fill="#ffffff" text-anchor="middle">broker-2</text>
+<rect x="850" y="160" width="80" height="26" rx="8" fill="#3c4d6e" stroke="none" stroke-width="1.5"/>
+<text x="890" y="178" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="10.5" font-weight="400" fill="#ffffff" text-anchor="middle">broker-3</text>
+<rect x="670" y="200" width="260" height="30" rx="8" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<text x="684" y="220" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="11.5" font-weight="600" fill="#2b3a55" text-anchor="start">lobby-actions-in</text>
+<rect x="670" y="240" width="260" height="30" rx="8" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<text x="684" y="260" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="11.5" font-weight="600" fill="#2b3a55" text-anchor="start">lobby-state-out</text>
+<rect x="670" y="280" width="260" height="30" rx="8" fill="#fbe7e8" stroke="none" stroke-width="1.5"/>
+<text x="684" y="300" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="11.5" font-weight="600" fill="#cf3439" text-anchor="start">lobby-state-store</text>
+<text x="920" y="300" font-family="Rubik, 'Segoe UI', system-ui, sans-serif" font-size="10" font-weight="400" fill="#cf3439" text-anchor="end">compactado</text>
+<rect x="670" y="350" width="260" height="30" rx="8" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<text x="684" y="370" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="11.5" font-weight="600" fill="#2b3a55" text-anchor="start">game-actions-in</text>
+<rect x="670" y="390" width="260" height="30" rx="8" fill="#ffffff" stroke="none" stroke-width="1.5"/>
+<text x="684" y="410" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="11.5" font-weight="600" fill="#2b3a55" text-anchor="start">game-state-out</text>
+<rect x="670" y="430" width="260" height="30" rx="8" fill="#fbe7e8" stroke="none" stroke-width="1.5"/>
+<text x="684" y="450" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="11.5" font-weight="600" fill="#cf3439" text-anchor="start">match-state-store</text>
+<text x="920" y="450" font-family="Rubik, 'Segoe UI', system-ui, sans-serif" font-size="10" font-weight="400" fill="#cf3439" text-anchor="end">compactado</text>
+<rect x="1000" y="190" width="150" height="126" rx="18" fill="#ffffff" stroke="#2b3a55" stroke-width="1.8"/>
+<text x="1075" y="248" font-family="Rubik, 'Segoe UI', system-ui, sans-serif" font-size="14" font-weight="700" fill="#1c1f26" text-anchor="middle">Lobby ×2</text>
+<rect x="1000" y="340" width="150" height="126" rx="18" fill="#ffffff" stroke="#2b3a55" stroke-width="1.8"/>
+<text x="1075" y="398" font-family="Rubik, 'Segoe UI', system-ui, sans-serif" font-size="14" font-weight="700" fill="#1c1f26" text-anchor="middle">Engine ×3</text>
+<text x="1075" y="418" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="10" font-weight="400" fill="#5d6370" text-anchor="middle">heretoslay-engine</text>
+<polyline points="600,216 670,216" fill="none" stroke="#2b3a55" stroke-width="1.8" marker-end="url(#arrow-2b3a55)"/>
+<polyline points="670,256 600,256" fill="none" stroke="#2b3a55" stroke-width="1.8" marker-end="url(#arrow-2b3a55)"/>
+<polyline points="600,366 670,366" fill="none" stroke="#2b3a55" stroke-width="1.8" marker-end="url(#arrow-2b3a55)"/>
+<polyline points="670,406 600,406" fill="none" stroke="#2b3a55" stroke-width="1.8" marker-end="url(#arrow-2b3a55)"/>
+<polyline points="930,216 1000,216" fill="none" stroke="#2b3a55" stroke-width="1.8" marker-end="url(#arrow-2b3a55)"/>
+<polyline points="1000,256 930,256" fill="none" stroke="#2b3a55" stroke-width="1.8" marker-end="url(#arrow-2b3a55)"/>
+<polyline points="1000,296 930,296" fill="none" stroke="#cf3439" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#arrow-cf3439)"/>
+<polyline points="930,366 1000,366" fill="none" stroke="#2b3a55" stroke-width="1.8" marker-end="url(#arrow-2b3a55)"/>
+<polyline points="1000,406 930,406" fill="none" stroke="#2b3a55" stroke-width="1.8" marker-end="url(#arrow-2b3a55)"/>
+<polyline points="1000,446 930,446" fill="none" stroke="#cf3439" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#arrow-cf3439)"/>
+<polyline points="650,556 690,556" stroke="#2b3a55" stroke-width="1.8" marker-end="url(#arrow-2b3a55)"/>
+<text x="700" y="560" font-family="Rubik, 'Segoe UI', system-ui, sans-serif" font-size="11.5" font-weight="400" fill="#5d6370" text-anchor="start">produz / consome</text>
+<polyline points="850,556 890,556" stroke="#cf3439" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#arrow-cf3439)"/>
+<text x="900" y="560" font-family="Rubik, 'Segoe UI', system-ui, sans-serif" font-size="11.5" font-weight="400" fill="#5d6370" text-anchor="start">persiste o estado e relê no boot</text>
+<rect x="40" y="360" width="340" height="62" rx="12" fill="#ffffff" stroke="#c9cdd6" stroke-width="1.5"/>
+<text x="56" y="386" font-family="Rubik, 'Segoe UI', system-ui, sans-serif" font-size="11.5" font-weight="400" fill="#1c1f26" text-anchor="start">Chave = matchId: as ações de uma partida</text>
+<text x="56" y="404" font-family="Rubik, 'Segoe UI', system-ui, sans-serif" font-size="11.5" font-weight="400" fill="#1c1f26" text-anchor="start">caem na mesma partição, sempre em ordem</text>
+<rect x="40" y="436" width="340" height="62" rx="12" fill="#ffffff" stroke="#c9cdd6" stroke-width="1.5"/>
+<text x="56" y="462" font-family="Rubik, 'Segoe UI', system-ui, sans-serif" font-size="11.5" font-weight="400" fill="#1c1f26" text-anchor="start">3 engines no mesmo consumer group:</text>
+<text x="56" y="480" font-family="Rubik, 'Segoe UI', system-ui, sans-serif" font-size="11.5" font-weight="400" fill="#1c1f26" text-anchor="start">cada partição tem um único dono</text>
+<rect x="40" y="512" width="340" height="62" rx="12" fill="#ffffff" stroke="#c9cdd6" stroke-width="1.5"/>
+<text x="56" y="538" font-family="Rubik, 'Segoe UI', system-ui, sans-serif" font-size="11.5" font-weight="400" fill="#1c1f26" text-anchor="start">Cada gateway tem um group.id único:</text>
+<text x="56" y="556" font-family="Rubik, 'Segoe UI', system-ui, sans-serif" font-size="11.5" font-weight="400" fill="#1c1f26" text-anchor="start">todos recebem todas as respostas</text>
+</svg>

@@ -1,0 +1,78 @@
+---
+import type { Download } from '../lib/content';
+import { formatDate, type Lang } from '../lib/i18n';
+import { t } from '../lib/ui-strings';
+
+interface Props {
+  lang: Lang;
+  downloads: Download[];
+}
+
+const { lang, downloads } = Astro.props;
+---
+
+<ul class="downloads">
+  {
+    downloads.map((file) => (
+      <li>
+        <div class="info">
+          <strong>{file.rotulo}</strong>
+          <span>
+            {file.plataforma} · v{file.versao} · {file.tamanho} · <time datetime={file.data.toISOString().slice(0, 10)}>{formatDate(file.data, lang)}</time>
+          </span>
+        </div>
+        <a class="get" href={file.url} rel="noopener">
+          <span aria-hidden="true">↓</span> {t(lang, 'download')}
+          <span class="visually-hidden"> {file.rotulo}</span>
+        </a>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .downloads {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-3) var(--space-4);
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-md);
+  }
+
+  .info {
+    display: grid;
+  }
+
+  .info span {
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+  }
+
+  .get {
+    flex-shrink: 0;
+    padding: 0.45em 0.9em;
+    border-radius: 999px;
+    background: var(--project-color, var(--color-ink));
+    color: #fff;
+    font-weight: 600;
+    font-size: var(--text-sm);
+    text-decoration: none;
+    transition: filter var(--duration-fast) ease;
+  }
+
+  .get:hover {
+    color: #fff;
+    filter: brightness(1.15);
+  }
+</style>

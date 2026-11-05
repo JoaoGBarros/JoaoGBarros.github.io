@@ -1,0 +1,89 @@
+---
+import TextList from '../components/TextList.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getProjects, getTextos } from '../lib/collections';
+import { collectTags } from '../lib/content';
+import { sectionPath, type Lang } from '../lib/i18n';
+import { projectTitleMap } from '../lib/lookups';
+import { t } from '../lib/ui-strings';
+
+interface Props {
+  lang: Lang;
+  filter?: { projeto?: string; tag?: string };
+}
+
+const { lang, filter = {} } = Astro.props;
+const [projects, textos] = await Promise.all([getProjects(lang), getTextos(lang)]);
+const titles = projectTitleMap(projects);
+const base = sectionPath(lang, 'texts');
+
+const items = textos.filter(
+  (texto) =>
+    (!filter.projeto || texto.entry.data.projeto === filter.projeto) &&
+    (!filter.tag || texto.entry.data.tags.includes(filter.tag)),
+);
+
+const projectFilters = [...new Set(textos.flatMap((x) => (x.entry.data.projeto ? [x.entry.data.projeto] : [])))];
+const tags = collectTags(textos);
+
+const heading = filter.projeto
+  ? `${t(lang, 'textsFilteredProject')} ${titles.get(filter.projeto) ?? filter.projeto}`
+  : filter.tag
+    ? `${t(lang, 'textsFilteredTag')} #${filter.tag}`
+    : t(lang, 'textsTitle');
+
+const path = filter.projeto
+  ? `${base}projeto/${filter.projeto}/`
+  : filter.tag
+    ? `${base}tag/${filter.tag}/`
+    : base;
+---
+
+<BaseLayout lang={lang} title={`${heading} · João Gabriel`} description={t(lang, 'textsIntro')} path={path}>
+  <div class="container">
+    <header class="page-head">
+      <h1>{heading}</h1>
+      <p>{t(lang, 'textsIntro')}</p>
+    </header>
+
+    {
+      (projectFilters.length > 0 || tags.length > 0) && (
+        <nav class="filters" aria-label={`${t(lang, 'filterByProject')} / ${t(lang, 'filterByTag')}`}>
+          <a class="chip" href={base} aria-current={!filter.projeto && !filter.tag ? 'page' : undefined}>
+            {t(lang, 'filterAll')}
+          </a>
+          {projectFilters.map((slug) => (
+            <a class="chip" href={`${base}projeto/${slug}/`} aria-current={filter.projeto === slug ? 'page' : undefined}>
+              {titles.get(slug) ?? slug}
+            </a>
+          ))}
+          {tags.map((tag) => (
+            <a class="chip" href={`${base}tag/${tag}/`} aria-current={filter.tag === tag ? 'page' : undefined}>
+              #{tag}
+            </a>
+          ))}
+        </nav>
+      )
+    }
+
+    {items.length === 0 ? <p class="empty">{t(lang, 'noTexts')}</p> : <TextList lang={lang} items={items} projectTitles={titles} />}
+  </div>
+</BaseLayout>
+
+<style>
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-bottom: var(--space-5);
+  }
+
+  .filters [aria-current='page'] {
+    background: var(--color-ink);
+    color: var(--color-paper);
+  }
+
+  .empty {
+    color: var(--color-muted);
+  }
+</style>

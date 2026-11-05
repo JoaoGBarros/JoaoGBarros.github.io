@@ -1,0 +1,195 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCv } from '../lib/collections';
+import { sectionPath, type Lang } from '../lib/i18n';
+import { t, type UiKey } from '../lib/ui-strings';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const cv = await getCv(lang);
+
+// A short timeline: who, where and when. The full detail lives in the PDFs.
+const groups: { key: UiKey; items: { titulo: string; org: string; periodo: string }[] }[] = [
+  { key: 'cvExperience', items: cv.experiencias },
+  { key: 'cvEducation', items: cv.formacao },
+  { key: 'cvPublications', items: cv.publicacoes.map((p) => ({ titulo: p.titulo, org: '', periodo: '' })) },
+  { key: 'cvLeadership', items: cv.lideranca },
+];
+const downloads = [
+  { href: '/cv/cv-pt.pdf', label: t(lang, 'cvDownloadPt'), hreflang: 'pt-BR', primary: lang === 'pt' },
+  { href: '/cv/cv-en.pdf', label: t(lang, 'cvDownloadEn'), hreflang: 'en', primary: lang === 'en' },
+].toSorted((a, b) => Number(b.primary) - Number(a.primary));
+---
+
+<BaseLayout lang={lang} title={`${t(lang, 'cvTitle')} · ${cv.nome}`} description={t(lang, 'cvIntro')} path={sectionPath(lang, 'cv')}>
+  <div class="container cv">
+    <header class="page-head">
+      <p class="eyebrow">{t(lang, 'cvTitle')}</p>
+      <h1>{cv.nome}</h1>
+      <p class="role">{cv.cargo}</p>
+      <p>{t(lang, 'cvIntro')}</p>
+      <ul class="downloads">
+        {
+          downloads.map((d) => (
+            <li>
+              <a class:list={['pdf', { primary: d.primary }]} href={d.href} hreflang={d.hreflang} download>
+                <span aria-hidden="true">↓</span> {d.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </header>
+
+    <div class="timeline">
+      {
+        groups
+          .filter((g) => g.items.length > 0)
+          .map((group) => (
+            <section aria-labelledby={`cv-${group.key}`}>
+              <h2 id={`cv-${group.key}`}>{t(lang, group.key)}</h2>
+              <ol>
+                {group.items.map((item) => (
+                  <li>
+                    <span class="when">{item.periodo}</span>
+                    <div>
+                      <strong>{item.titulo}</strong>
+                      {item.org && <span class="org">{item.org}</span>}
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </section>
+          ))
+      }
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .cv {
+    max-width: 52rem;
+  }
+
+  .page-head .role {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+
+  .downloads {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    list-style: none;
+    padding: 0;
+    margin: var(--space-3) 0 0;
+  }
+
+  .pdf {
+    display: inline-flex;
+    gap: 0.4em;
+    padding: 0.6em 1.1em;
+    border-radius: 999px;
+    border: 1px solid var(--color-line);
+    background: var(--color-surface);
+    color: var(--color-ink);
+    font-weight: 600;
+    text-decoration: none;
+    transition:
+      background var(--duration-fast) ease,
+      border-color var(--duration-fast) ease;
+  }
+
+  .pdf:hover {
+    border-color: var(--color-ink-soft);
+  }
+
+  .pdf.primary {
+    background: var(--color-ink);
+    border-color: var(--color-ink);
+    color: var(--color-paper);
+  }
+
+  .pdf.primary:hover {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+
+  .timeline {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  h2 {
+    font-size: var(--text-xs);
+    font-family: var(--font-body);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    margin-bottom: var(--space-3);
+  }
+
+  ol {
+    list-style: none;
+    margin: 0;
+    padding: 0 0 0 var(--space-4);
+    border-left: 2px solid var(--color-line);
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .timeline li {
+    position: relative;
+    display: grid;
+    grid-template-columns: 9.5rem 1fr;
+    gap: var(--space-4);
+    align-items: baseline;
+  }
+
+  /* Dot on the timeline line. */
+  .timeline li::before {
+    content: '';
+    position: absolute;
+    left: calc(-1 * var(--space-4) - 6px);
+    top: 0.5em;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--color-paper);
+    border: 2px solid var(--color-accent);
+  }
+
+  .when {
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .timeline li div {
+    display: grid;
+  }
+
+  strong {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    line-height: 1.25;
+  }
+
+  .org {
+    color: var(--color-ink-soft);
+  }
+
+  @media (max-width: 40rem) {
+    .timeline li {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+  }
+</style>

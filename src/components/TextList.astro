@@ -1,0 +1,147 @@
+---
+import type { Texto } from '../lib/collections';
+import { contentLangAttr, formatDate, sectionPath, type Lang, type Localized } from '../lib/i18n';
+import { t } from '../lib/ui-strings';
+
+interface Props {
+  lang: Lang;
+  items: Localized<Texto>[];
+  /** slug → project title; when given, each row shows its project. */
+  projectTitles?: ReadonlyMap<string, string>;
+  /** Show "1." style series numbers instead of dates. */
+  numbered?: boolean;
+}
+
+const { lang, items, projectTitles, numbered = false } = Astro.props;
+---
+
+<ol class:list={['texts', { numbered }]}>
+  {
+    items.map((item, index) => {
+      const data = item.entry.data;
+      const project = data.projeto && projectTitles?.get(data.projeto);
+      return (
+        <li>
+          {numbered && <span class="num" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>}
+          <div class="main">
+            <a href={sectionPath(lang, 'texts', item.slug)} lang={contentLangAttr(lang, item.lang)}>
+              {data.titulo}
+            </a>
+            <p lang={contentLangAttr(lang, item.lang)}>{data.resumo}</p>
+          </div>
+          <div class="side">
+            {data.fixado && !numbered && <span class="pin">{t(lang, 'pinned')}</span>}
+            <time datetime={data.data.toISOString().slice(0, 10)}>{formatDate(data.data, lang)}</time>
+            {project && <span class="chip">{project}</span>}
+          </div>
+        </li>
+      );
+    })
+  }
+</ol>
+
+<style>
+  .texts {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  /* Cada texto num balão, como uma fala de diálogo. */
+  li {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--space-2) var(--space-5);
+    padding: var(--space-5) var(--space-6);
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-lg) var(--radius-lg) var(--radius-lg) 6px;
+    transition:
+      transform var(--duration-normal) var(--ease-out),
+      box-shadow var(--duration-normal) var(--ease-out);
+  }
+
+  li:hover,
+  li:focus-within {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lift);
+  }
+
+  .numbered li {
+    grid-template-columns: 2.5rem 1fr auto;
+  }
+
+  .num {
+    font-family: var(--font-pixel);
+    font-size: var(--text-sm);
+    color: var(--project-color, var(--color-accent));
+    padding-top: 0.3rem;
+  }
+
+  .main a {
+    font-size: var(--text-lg);
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    color: var(--color-ink);
+    text-decoration: none;
+  }
+
+  /* Whole bubble is clickable through the title link. */
+  .main a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+  }
+
+  .main p {
+    color: var(--color-muted);
+    font-size: var(--text-base);
+    margin-top: var(--space-1);
+    max-width: 60ch;
+  }
+
+  .side {
+    display: grid;
+    justify-items: end;
+    align-content: start;
+    gap: var(--space-1);
+    font-family: var(--font-pixel);
+    font-size: var(--text-xs);
+    color: var(--color-muted);
+    white-space: nowrap;
+  }
+
+  .pin {
+    padding: 0.2em 0.6em;
+    border-radius: 999px;
+    background: var(--color-accent);
+    color: #fff;
+  }
+
+  .side .chip {
+    font-family: var(--font-body);
+  }
+
+  @media (max-width: 40rem) {
+    li,
+    .numbered li {
+      grid-template-columns: 1fr;
+      padding: var(--space-4) var(--space-5);
+    }
+
+    .num {
+      display: none;
+    }
+
+    .side {
+      justify-items: start;
+      grid-auto-flow: column;
+      justify-content: start;
+      align-items: center;
+    }
+  }
+</style>

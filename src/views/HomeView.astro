@@ -1,0 +1,198 @@
+---
+import { Image } from 'astro:assets';
+import foto from '../assets/foto-joao.jpg';
+import ContactButtons from '../components/ContactButtons.astro';
+import FeaturedProjects from '../components/FeaturedProjects.astro';
+import FeedItem from '../components/FeedItem.astro';
+import TextList from '../components/TextList.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getFeed, getProjects, getTextos } from '../lib/collections';
+import { featured } from '../lib/content';
+import { sectionPath, type Lang } from '../lib/i18n';
+import { projectTitleMap, textCountMap } from '../lib/lookups';
+import { t } from '../lib/ui-strings';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const HOME_LIST_SIZE = 3;
+const [projects, textos, feed] = await Promise.all([getProjects(lang), getTextos(lang), getFeed(lang)]);
+const titles = projectTitleMap(projects);
+const highlighted = featured(projects);
+const recentTexts = textos.slice(0, HOME_LIST_SIZE);
+const recentPosts = feed.slice(0, HOME_LIST_SIZE);
+---
+
+<BaseLayout lang={lang} title={t(lang, 'homeTitle')} description={t(lang, 'homeDescription')} path={sectionPath(lang, 'home')}>
+  <section class="container hero-wrap" aria-labelledby="hero-name">
+    <div class="hero surface">
+      <div class="portrait">
+        <Image src={foto} alt={t(lang, 'photoAlt')} widths={[220, 440]} sizes="(min-width: 48rem) 13rem, 9rem" loading="eager" fetchpriority="high" />
+      </div>
+      <div class="intro">
+        <p class="hello">{t(lang, 'heroRole')} · Vitória, ES</p>
+        <h1 id="hero-name">{t(lang, 'heroGreeting')} <span>João Gabriel</span></h1>
+        <p class="bio">{t(lang, 'heroBio')}</p>
+        <ContactButtons lang={lang} variant="hero" />
+      </div>
+    </div>
+  </section>
+
+  {
+    highlighted.length > 0 && (
+      <section class="container block" aria-labelledby="featured-title">
+        <div class="block-head">
+          <h2 id="featured-title">{t(lang, 'featuredProjects')}</h2>
+          <a href={sectionPath(lang, 'projects')}>{t(lang, 'allProjects')} →</a>
+        </div>
+        <FeaturedProjects lang={lang} projects={highlighted} textCounts={textCountMap(textos)} />
+      </section>
+    )
+  }
+
+  {
+    recentTexts.length > 0 && (
+      <section class="container block" aria-labelledby="texts-title">
+        <div class="block-head">
+          <h2 id="texts-title">{t(lang, 'recentTexts')}</h2>
+          <a href={sectionPath(lang, 'texts')}>{t(lang, 'allTexts')} →</a>
+        </div>
+        <TextList lang={lang} items={recentTexts} projectTitles={titles} />
+      </section>
+    )
+  }
+
+  {
+    recentPosts.length > 0 && (
+      <section class="container block" aria-labelledby="feed-title">
+        <div class="block-head">
+          <h2 id="feed-title">{t(lang, 'recentFeed')}</h2>
+          <a href={sectionPath(lang, 'feed')}>{t(lang, 'allFeed')} →</a>
+        </div>
+        <div class="feed">
+          {recentPosts.map((post) => <FeedItem lang={lang} post={post} projectTitles={titles} />)}
+        </div>
+      </section>
+    )
+  }
+</BaseLayout>
+
+<style>
+  .hero-wrap {
+    padding-top: var(--space-5);
+  }
+
+  .hero {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-xl);
+    padding: clamp(1.5rem, 1rem + 2.5vw, 2.75rem);
+    display: grid;
+    gap: var(--space-6);
+    align-items: center;
+  }
+
+  /* Brilho suave no canto, como o reflexo na tela do console. */
+  .hero::after {
+    content: '';
+    position: absolute;
+    right: -4rem;
+    top: -4rem;
+    width: 16rem;
+    height: 16rem;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgb(229 72 77 / 16%), transparent 70%);
+    pointer-events: none;
+  }
+
+  @media (min-width: 48rem) {
+    .hero {
+      grid-template-columns: auto 1fr;
+      gap: var(--space-7);
+    }
+  }
+
+  .portrait {
+    width: clamp(9rem, 6rem + 9vw, 13rem);
+    aspect-ratio: 1;
+    border-radius: 28px;
+    overflow: hidden;
+    rotate: -3deg;
+    box-shadow: var(--shadow-photo);
+    transition: rotate var(--duration-normal) var(--ease-out);
+  }
+
+  .portrait:hover {
+    rotate: 0deg;
+  }
+
+  .portrait img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .intro {
+    position: relative;
+    display: grid;
+    gap: var(--space-4);
+    justify-items: start;
+  }
+
+  .hello {
+    padding: 0.35rem 0.8rem;
+    border-radius: 999px;
+    background: var(--color-paper);
+    color: var(--color-accent);
+    font-size: var(--text-sm);
+    font-weight: 600;
+  }
+
+  h1 {
+    font-size: var(--text-hero);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.035em;
+  }
+
+  h1 span {
+    color: var(--color-accent);
+  }
+
+  .bio {
+    font-size: var(--text-lg);
+    color: var(--color-muted);
+    line-height: 1.6;
+    max-width: 52ch;
+  }
+
+  .block {
+    margin-top: var(--space-section);
+  }
+
+  .block-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-5);
+  }
+
+  .block-head h2 {
+    font-size: var(--text-xl);
+  }
+
+  .block-head a {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-accent);
+  }
+
+  .feed {
+    display: grid;
+    gap: var(--space-4);
+  }
+</style>

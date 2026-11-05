@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { t } from '../lib/ui-strings';
+---
+
+<BaseLayout lang="en" title={`${t('en', 'notFoundTitle')} · João Gabriel`} description={t('en', 'notFoundBody')} path="/404/">
+  <div class="container nf">
+    <p class="code" aria-hidden="true">404</p>
+    <section lang="pt-BR">
+      <h1>{t('pt', 'notFoundTitle')}</h1>
+      <p>{t('pt', 'notFoundBody')}</p>
+      <a href="/pt/">{t('pt', 'goHome')} →</a>
+    </section>
+    <section>
+      <h2>{t('en', 'notFoundTitle')}</h2>
+      <p>{t('en', 'notFoundBody')}</p>
+      <a href="/en/">{t('en', 'goHome')} →</a>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .nf {
+    display: grid;
+    gap: var(--space-6);
+    padding-top: var(--space-7);
+    max-width: 40rem;
+  }
+
+  .code {
+    font-family: var(--font-display);
+    font-size: clamp(5rem, 3rem + 10vw, 9rem);
+    font-weight: 800;
+    line-height: 0.9;
+    color: var(--color-accent);
+    rotate: -3deg;
+  }
+
+  section {
+    display: grid;
+    gap: var(--space-2);
+    justify-items: start;
+  }
+
+  h1,
+  h2 {
+    font-size: var(--text-xl);
+  }
+</style>

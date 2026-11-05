@@ -1,0 +1,165 @@
+---
+import { sectionPath, type Lang, type Section } from '../lib/i18n';
+import { t, type UiKey } from '../lib/ui-strings';
+import LangSwitch from './LangSwitch.astro';
+
+interface Props {
+  lang: Lang;
+  path: string;
+}
+
+const { lang, path } = Astro.props;
+
+const items: { section: Exclude<Section, 'home'>; label: UiKey }[] = [
+  { section: 'projects', label: 'navProjects' },
+  { section: 'texts', label: 'navTexts' },
+  { section: 'feed', label: 'navFeed' },
+  { section: 'downloads', label: 'navDownloads' },
+  { section: 'cv', label: 'navCv' },
+];
+
+const isCurrent = (section: Exclude<Section, 'home'>) => path.startsWith(sectionPath(lang, section));
+---
+
+<header class="site-header">
+  <div class="container bar">
+    <a class="brand" href={sectionPath(lang, 'home')}>
+      <span class="mark" aria-hidden="true">JG</span>
+      <span class="name">{t(lang, 'siteName')}</span>
+    </a>
+    <nav aria-label={t(lang, 'navLabel')}>
+      <ul>
+        {
+          items.map((item) => (
+            <li>
+              <a
+                href={sectionPath(lang, item.section)}
+                aria-current={isCurrent(item.section) ? 'page' : undefined}
+              >
+                {t(lang, item.label)}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+    <LangSwitch lang={lang} path={path} />
+  </div>
+</header>
+
+<style>
+  .site-header {
+    background: color-mix(in srgb, var(--color-paper) 90%, transparent);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  .bar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    min-height: 4.5rem;
+    flex-wrap: wrap;
+    padding-block: var(--space-3);
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    color: var(--color-ink);
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 1.1rem;
+    letter-spacing: -0.01em;
+  }
+
+  .mark {
+    display: grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: var(--radius-sm);
+    background: var(--color-accent);
+    color: #fff;
+    font-family: var(--font-pixel);
+    font-size: 0.75rem;
+    transition: transform var(--duration-normal) var(--ease-out);
+  }
+
+  .brand:hover .mark {
+    transform: rotate(-6deg) scale(1.05);
+  }
+
+  nav {
+    margin-left: auto;
+  }
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1);
+    list-style: none;
+    margin: 0;
+    padding: 5px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: 999px;
+  }
+
+  nav a {
+    display: block;
+    padding: 0.5rem 0.9rem;
+    border-radius: 999px;
+    color: var(--color-muted);
+    text-decoration: none;
+    font-size: var(--text-sm);
+    font-weight: 500;
+    transition:
+      background var(--duration-fast) ease,
+      color var(--duration-fast) ease;
+  }
+
+  nav a:hover {
+    background: var(--color-paper);
+    color: var(--color-ink);
+  }
+
+  nav a[aria-current='page'] {
+    background: var(--color-ink);
+    color: #fff;
+  }
+
+  /* Keep the name for screen readers; only the JG mark shows on small screens. */
+  @media (max-width: 40rem) {
+    .name {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+
+    nav {
+      order: 3;
+      width: 100%;
+      margin-left: 0;
+    }
+
+    ul {
+      justify-content: space-between;
+      border-radius: var(--radius-md);
+    }
+
+    nav a {
+      padding: 0.45rem 0.6rem;
+    }
+
+    .bar :global(.lang-switch) {
+      margin-left: auto;
+    }
+  }
+</style>

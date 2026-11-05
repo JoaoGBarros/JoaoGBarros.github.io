@@ -1,0 +1,71 @@
+---
+import DownloadList from '../components/DownloadList.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getProjects } from '../lib/collections';
+import { downloadsByProject } from '../lib/content';
+import { sectionPath, type Lang } from '../lib/i18n';
+import { t } from '../lib/ui-strings';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const groups = downloadsByProject(await getProjects(lang));
+---
+
+<BaseLayout
+  lang={lang}
+  title={`${t(lang, 'downloadsTitle')} · João Gabriel`}
+  description={t(lang, 'downloadsIntro')}
+  path={sectionPath(lang, 'downloads')}
+>
+  <div class="container">
+    <header class="page-head">
+      <h1>{t(lang, 'downloadsTitle')}</h1>
+      <p>{t(lang, 'downloadsIntro')}</p>
+    </header>
+    {groups.length === 0 && <p class="empty">{t(lang, 'noDownloads')}</p>}
+    <div class="groups">
+      {
+        groups.map(({ project, downloads }) => (
+          <section style={`--project-color: ${project.entry.data.cor}`} aria-labelledby={`dl-${project.slug}`}>
+            <h2 id={`dl-${project.slug}`}>
+              <a href={sectionPath(lang, 'projects', project.slug)}>{project.entry.data.titulo}</a>
+            </h2>
+            <DownloadList lang={lang} downloads={downloads} />
+          </section>
+        ))
+      }
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .empty {
+    padding: var(--space-6);
+    border: 1px dashed var(--color-line);
+    border-radius: var(--radius-lg);
+    color: var(--color-muted);
+    text-align: center;
+  }
+
+  .groups {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  section {
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  h2 {
+    font-size: var(--text-xl);
+  }
+
+  h2 a {
+    color: var(--color-ink);
+    text-decoration-color: var(--project-color);
+  }
+</style>

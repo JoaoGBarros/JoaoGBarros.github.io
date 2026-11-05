@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 720" width="1180" height="720" role="img" aria-label="Diagrama de classes do Here To Slay antes do Kafka: a partida guarda o estado de cada jogador, e os efeitos das cartas seguem os padrões Composite e Conditional">
+<title>Diagrama de classes do Here To Slay antes do Kafka: a partida guarda o estado de cada jogador, e os efeitos das cartas seguem os padrões Composite e Conditional</title>
+<defs><marker id="arrow-2b3a55" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2b3a55"/></marker><marker id="tri-2b3a55" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" orient="auto-start-reverse"><path d="M1,1 L11,6 L1,11 z" fill="#ffffff" stroke="#2b3a55" stroke-width="1.4"/></marker><marker id="dia-2b3a55" viewBox="0 0 14 10" refX="13" refY="5" markerWidth="14" markerHeight="10" orient="auto-start-reverse"><path d="M1,5 L7,1 L13,5 L7,9 z" fill="#ffffff" stroke="#2b3a55" stroke-width="1.4"/></marker><marker id="arrow-cf3439" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#cf3439"/></marker><marker id="tri-cf3439" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" orient="auto-start-reverse"><path d="M1,1 L11,6 L1,11 z" fill="#ffffff" stroke="#cf3439" stroke-width="1.4"/></marker><marker id="dia-cf3439" viewBox="0 0 14 10" refX="13" refY="5" markerWidth="14" markerHeight="10" orient="auto-start-reverse"><path d="M1,5 L7,1 L13,5 L7,9 z" fill="#ffffff" stroke="#cf3439" stroke-width="1.4"/></marker><marker id="arrow-5d6370" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5d6370"/></marker><marker id="tri-5d6370" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" orient="auto-start-reverse"><path d="M1,1 L11,6 L1,11 z" fill="#ffffff" stroke="#5d6370" stroke-width="1.4"/></marker><marker id="dia-5d6370" viewBox="0 0 14 10" refX="13" refY="5" markerWidth="14" markerHeight="10" orient="auto-start-reverse"><path d="M1,5 L7,1 L13,5 L7,9 z" fill="#ffffff" stroke="#5d6370" stroke-width="1.4"/></marker><marker id="arrow-1c1f26" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1c1f26"/></marker><marker id="tri-1c1f26" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" orient="auto-start-reverse"><path d="M1,1 L11,6 L1,11 z" fill="#ffffff" stroke="#1c1f26" stroke-width="1.4"/></marker><marker id="dia-1c1f26" viewBox="0 0 14 10" refX="13" refY="5" markerWidth="14" markerHeight="10" orient="auto-start-reverse"><path d="M1,5 L7,1 L13,5 L7,9 z" fill="#ffffff" stroke="#1c1f26" stroke-width="1.4"/></marker></defs>
+<rect width="1180" height="720" rx="24" fill="#f1f2f4"/>
+<text x="40" y="52" font-family="Rubik, 'Segoe UI', system-ui, sans-serif" font-size="22" font-weight="800" fill="#1c1f26" text-anchor="start">Classes principais da partida e das cartas</text>
+<rect x="40" y="90" width="270" height="230" rx="10" fill="#ffffff" stroke="#2b3a55" stroke-width="1.6"/>
+<path d="M40,124 h270" stroke="#2b3a55" stroke-width="1"/>
+<text x="175.0" y="112" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="13.5" font-weight="700" fill="#2b3a55" text-anchor="middle">Match</text>
+<text x="52" y="144" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="11.5" font-weight="400" fill="#1c1f26" text-anchor="start">matchState: MatchState</text>
+<text x="52" y="161" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="11.5" font-weight="400" fill="#1c1f26" text-anchor="start">players: Map&lt;WebSocket, GameState&gt;</text>
+<text x="52" y="178" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="11.5" font-weight="400" fill="#1c1f26" text-anchor="start">turnOrder: List&lt;WebSocket&gt;</text>
+<text x="52" y="195" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="11.5" font-weight="400" fill="#1c1f26" text-anchor="start">drawPile: Stack&lt;Card&gt;</text>
+<text x="52" y="212" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="11.5" font-weight="400" fill="#1c1f26" text-anchor="start">discardPile: List&lt;Card&gt;</text>
+<text x="52" y="229" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="11.5" font-weight="400" fill="#1c1f26" text-anchor="start">currentHeroCard: Card</text>
+<path d="M40,238 h270" stroke="#c9cdd6" stroke-width="1"/>
+<text x="52" y="256" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="11.5" font-weight="400" fill="#5d6370" text-anchor="start">playCard(state, cardId)</text>
+<text x="52" y="273" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="11.5" font-weight="400" fill="#5d6370" text-anchor="start">challengeHero(conn)</text>
+<text x="52" y="290" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="11.5" font-weight="400" fill="#5d6370" text-anchor="start">processHeroDiceRoll(state, roll)</text>
+<text x="52" y="307" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="11.5" font-weight="400" fill="#5d6370" text-anchor="start">broadcast(message)</text>
+<rect x="40" y="420" width="270" height="152" rx="10" fill="#ffffff" stroke="#2b3a55" stroke-width="1.6"/>
+<path d="M40,454 h270" stroke="#2b3a55" stroke-width="1"/>
+<text x="175.0" y="442" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="13.5" font-weight="700" fill="#2b3a55" text-anchor="middle">GameState</text>
+<text x="52" y="474" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="11.5" font-weight="400" fill="#1c1f26" text-anchor="start">username: String</text>
+<text x="52" y="491" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="11.5" font-weight="400" fill="#1c1f26" text-anchor="start">leader: PartyLeader</text>
+<text x="52" y="508" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="11.5" font-weight="400" fill="#1c1f26" text-anchor="start">hand: List&lt;Card&gt;</text>
+<text x="52" y="525" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="11.5" font-weight="400" fill="#1c1f26" text-anchor="start">party: List&lt;Card&gt;</text>
+<text x="52" y="542" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="11.5" font-weight="400" fill="#1c1f26" text-anchor="start">currentAP / maxAP: int</text>
+<text x="52" y="559" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="11.5" font-weight="400" fill="#1c1f26" text-anchor="start">pendingHeroCard: Card</text>
+<polyline points="175,420 175,320" fill="none" stroke="#2b3a55" stroke-width="1.8" marker-end="url(#dia-2b3a55)"/>
+<rect x="62.4" y="363" width="95.2" height="20" rx="6" fill="#ffffff" opacity="0.94"/>
+<text x="110" y="376" font-family="Rubik, 'Segoe UI', system-ui, sans-serif" font-size="11.5" font-weight="500" fill="#2b3a55" text-anchor="middle">1 por jogador</text>
+<rect x="410" y="90" width="280" height="132" rx="10" fill="#ffffff" stroke="#2b3a55" stroke-width="1.6"/>
+<path d="M410,138 h280" stroke="#2b3a55" stroke-width="1"/>
+<text x="550.0" y="108" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="10.5" font-weight="400" fill="#5d6370" text-anchor="middle">«abstract»</text>
+<text x="550.0" y="126" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="13.5" font-weight="700" fill="#2b3a55" text-anchor="middle" font-style="italic">Card</text>
+<text x="422" y="158" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="11.5" font-weight="400" fill="#1c1f26" text-anchor="start">cardId: Long</text>
+<text x="422" y="175" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="11.5" font-weight="400" fill="#1c1f26" text-anchor="start">cardName: String</text>
+<text x="422" y="192" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="11.5" font-weight="400" fill="#1c1f26" text-anchor="start">type: CardType</text>
+<text x="422" y="209" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="11.5" font-weight="400" fill="#1c1f26" text-anchor="start">effect: CompositeCardEffect</text>
+<rect x="390" y="300" width="140" height="67" rx="10" fill="#ffffff" stroke="#2b3a55" stroke-width="1.6"/>
+<path d="M390,334 h140" stroke="#2b3a55" stroke-width="1"/>
+<text x="460.0" y="322" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="13.5" font-weight="700" fill="#2b3a55" text-anchor="middle">HeroCard</text>
+<text x="402" y="354" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="11.5" font-weight="400" fill="#1c1f26" text-anchor="start">diceValue: int</text>
+<polyline points="530,322 550,322" fill="none" stroke="#2b3a55" stroke-width="1.6"/>
+<rect x="570" y="300" width="140" height="50" rx="10" fill="#ffffff" stroke="#2b3a55" stroke-width="1.6"/>
+<path d="M570,334 h140" stroke="#2b3a55" stroke-width="1"/>
+<text x="640.0" y="322" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="13.5" font-weight="700" fill="#2b3a55" text-anchor="middle">MagicCard</text>
+<polyline points="570,322 550,322" fill="none" stroke="#2b3a55" stroke-width="1.6"/>
+<rect x="390" y="400" width="140" height="50" rx="10" fill="#ffffff" stroke="#2b3a55" stroke-width="1.6"/>
+<path d="M390,434 h140" stroke="#2b3a55" stroke-width="1"/>
+<text x="460.0" y="422" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="13.5" font-weight="700" fill="#2b3a55" text-anchor="middle">ItemCard</text>
+<polyline points="530,422 550,422" fill="none" stroke="#2b3a55" stroke-width="1.6"/>
+<rect x="570" y="400" width="140" height="67" rx="10" fill="#ffffff" stroke="#2b3a55" stroke-width="1.6"/>
+<path d="M570,434 h140" stroke="#2b3a55" stroke-width="1"/>
+<text x="640.0" y="422" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="13.5" font-weight="700" fill="#2b3a55" text-anchor="middle">ModifierCard</text>
+<text x="582" y="454" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="11.5" font-weight="400" fill="#1c1f26" text-anchor="start">modifierValue: int</text>
+<polyline points="570,422 550,422" fill="none" stroke="#2b3a55" stroke-width="1.6"/>
+<rect x="390" y="490" width="140" height="50" rx="10" fill="#ffffff" stroke="#2b3a55" stroke-width="1.6"/>
+<path d="M390,524 h140" stroke="#2b3a55" stroke-width="1"/>
+<text x="460.0" y="512" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="13.5" font-weight="700" fill="#2b3a55" text-anchor="middle">ChallengeCard</text>
+<polyline points="530,512 550,512" fill="none" stroke="#2b3a55" stroke-width="1.6"/>
+<polyline points="550,512 550,222" fill="none" stroke="#2b3a55" stroke-width="1.6" marker-end="url(#tri-2b3a55)"/>
+<polyline points="310,200 410,200" fill="none" stroke="#5d6370" stroke-width="1.8" marker-end="url(#arrow-5d6370)"/>
+<rect x="325.2" y="163" width="69.6" height="36" rx="6" fill="#ffffff" opacity="0.94"/>
+<text x="360" y="176" font-family="Rubik, 'Segoe UI', system-ui, sans-serif" font-size="11.5" font-weight="500" fill="#5d6370" text-anchor="middle">baralho e</text>
+<text x="360" y="192" font-family="Rubik, 'Segoe UI', system-ui, sans-serif" font-size="11.5" font-weight="500" fill="#5d6370" text-anchor="middle">descarte</text>
+<polyline points="310,480 340,480 340,150 410,150" fill="none" stroke="#5d6370" stroke-width="1.8" marker-end="url(#arrow-5d6370)"/>
+<rect x="235.6" y="385" width="82.4" height="20" rx="6" fill="#ffffff" opacity="0.94"/>
+<text x="312" y="398" font-family="Rubik, 'Segoe UI', system-ui, sans-serif" font-size="11.5" font-weight="500" fill="#5d6370" text-anchor="end">mão e grupo</text>
+<rect x="780" y="90" width="320" height="91" rx="10" fill="#ffffff" stroke="#cf3439" stroke-width="1.6"/>
+<path d="M780,138 h320" stroke="#cf3439" stroke-width="1"/>
+<text x="940.0" y="108" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="10.5" font-weight="400" fill="#5d6370" text-anchor="middle">«interface»</text>
+<text x="940.0" y="126" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="13.5" font-weight="700" fill="#cf3439" text-anchor="middle">CardEffect</text>
+<path d="M780,150 h320" stroke="#c9cdd6" stroke-width="1"/>
+<text x="792" y="168" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="11.5" font-weight="400" fill="#5d6370" text-anchor="start">applyEffect(match, gameState)</text>
+<rect x="740" y="300" width="190" height="67" rx="10" fill="#ffffff" stroke="#cf3439" stroke-width="1.6"/>
+<path d="M740,334 h190" stroke="#cf3439" stroke-width="1"/>
+<text x="835.0" y="322" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="13.5" font-weight="700" fill="#cf3439" text-anchor="middle">CompositeCardEffect</text>
+<text x="752" y="354" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="11.5" font-weight="400" fill="#1c1f26" text-anchor="start">effects: List&lt;CardEffect&gt;</text>
+<rect x="950" y="300" width="190" height="101" rx="10" fill="#ffffff" stroke="#cf3439" stroke-width="1.6"/>
+<path d="M950,334 h190" stroke="#cf3439" stroke-width="1"/>
+<text x="1045.0" y="322" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="13.5" font-weight="700" fill="#cf3439" text-anchor="middle">ConditionalCardEffect</text>
+<text x="962" y="354" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="11.5" font-weight="400" fill="#1c1f26" text-anchor="start">condition: Predicate</text>
+<text x="962" y="371" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="11.5" font-weight="400" fill="#1c1f26" text-anchor="start">effectIfTrue</text>
+<text x="962" y="388" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="11.5" font-weight="400" fill="#1c1f26" text-anchor="start">effectIfFalse</text>
+<polyline points="835,300 835,260 1160,260" fill="none" stroke="#cf3439" stroke-width="1.6" stroke-dasharray="6 4"/>
+<polyline points="1045,300 1045,260" fill="none" stroke="#cf3439" stroke-width="1.6" stroke-dasharray="6 4"/>
+<polyline points="940,260 940,182" fill="none" stroke="#cf3439" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#tri-cf3439)"/>
+<rect x="740" y="470" width="130" height="38" rx="10" fill="#ffffff" stroke="#cf3439" stroke-width="1.5"/>
+<text x="805" y="494" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="11.5" font-weight="600" fill="#cf3439" text-anchor="middle">DrawEffect</text>
+<rect x="880" y="470" width="130" height="38" rx="10" fill="#ffffff" stroke="#cf3439" stroke-width="1.5"/>
+<text x="945" y="494" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="11.5" font-weight="600" fill="#cf3439" text-anchor="middle">DestroyCardEffect</text>
+<rect x="1020" y="470" width="130" height="38" rx="10" fill="#ffffff" stroke="#cf3439" stroke-width="1.5"/>
+<text x="1085" y="494" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="11.5" font-weight="600" fill="#cf3439" text-anchor="middle">StealCardEffect</text>
+<rect x="810" y="535" width="130" height="38" rx="10" fill="#ffffff" stroke="#cf3439" stroke-width="1.5"/>
+<text x="875" y="559" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="11.5" font-weight="600" fill="#cf3439" text-anchor="middle">StealHandEffect</text>
+<rect x="950" y="535" width="130" height="38" rx="10" fill="#ffffff" stroke="#cf3439" stroke-width="1.5"/>
+<text x="1015" y="559" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="11.5" font-weight="600" fill="#cf3439" text-anchor="middle">TradeHandEffect</text>
+<polyline points="805,470 805,450 1160,450 1160,260" fill="none" stroke="#cf3439" stroke-width="1.6" stroke-dasharray="6 4"/>
+<polyline points="945,470 945,450" fill="none" stroke="#cf3439" stroke-width="1.6" stroke-dasharray="6 4"/>
+<polyline points="1085,470 1085,450" fill="none" stroke="#cf3439" stroke-width="1.6" stroke-dasharray="6 4"/>
+<polyline points="875,535 875,521 742,521 742,450 805,450" fill="none" stroke="#cf3439" stroke-width="1.6" stroke-dasharray="6 4"/>
+<polyline points="1015,535 1015,521 1160,521 1160,450" fill="none" stroke="#cf3439" stroke-width="1.6" stroke-dasharray="6 4"/>
+<polyline points="740,318 728,318 728,135 780,135" fill="none" stroke="#cf3439" stroke-width="1.8" marker-start="url(#dia-cf3439)" marker-end="url(#arrow-cf3439)"/>
+<rect x="749.0" y="375" width="172.0" height="36" rx="6" fill="#ffffff" opacity="0.94"/>
+<text x="835" y="388" font-family="Rubik, 'Segoe UI', system-ui, sans-serif" font-size="11.5" font-weight="500" fill="#cf3439" text-anchor="middle">Composite: um efeito pode</text>
+<text x="835" y="404" font-family="Rubik, 'Segoe UI', system-ui, sans-serif" font-size="11.5" font-weight="500" fill="#cf3439" text-anchor="middle">ser uma lista de efeitos</text>
+<rect x="959.0" y="407" width="172.0" height="36" rx="6" fill="#ffffff" opacity="0.94"/>
+<text x="1045" y="420" font-family="Rubik, 'Segoe UI', system-ui, sans-serif" font-size="11.5" font-weight="500" fill="#cf3439" text-anchor="middle">Conditional: um efeito ou</text>
+<text x="1045" y="436" font-family="Rubik, 'Segoe UI', system-ui, sans-serif" font-size="11.5" font-weight="500" fill="#cf3439" text-anchor="middle">outro, conforme o estado</text>
+<polyline points="690,205 712,205 712,345 740,345" fill="none" stroke="#5d6370" stroke-width="1.8" marker-end="url(#arrow-5d6370)"/>
+<rect x="655.6" y="269" width="50.4" height="20" rx="6" fill="#ffffff" opacity="0.94"/>
+<text x="700" y="282" font-family="Rubik, 'Segoe UI', system-ui, sans-serif" font-size="11.5" font-weight="500" fill="#5d6370" text-anchor="end">efeito</text>
+<rect x="40" y="600" width="1100" height="90" rx="12" fill="#ffffff" stroke="#c9cdd6" stroke-width="1.5"/>
+<text x="64" y="634" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="12.5" font-weight="700" fill="#2b3a55" text-anchor="start">«enum» MatchState</text>
+<text x="64" y="660" font-family="Rubik, 'Segoe UI', system-ui, sans-serif" font-size="11.5" font-weight="400" fill="#5d6370" text-anchor="start">11 estados da partida</text>
+<text x="424" y="634" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="12.5" font-weight="700" fill="#2b3a55" text-anchor="start">«enum» PartyLeader</text>
+<text x="424" y="660" font-family="Rubik, 'Segoe UI', system-ui, sans-serif" font-size="11.5" font-weight="400" fill="#5d6370" text-anchor="start">BARD · WIZARD · FIGHTER · THIEF · GUARDIAN · RANGER</text>
+<text x="784" y="634" font-family="'JetBrains Mono', Consolas, 'Courier New', monospace" font-size="12.5" font-weight="700" fill="#2b3a55" text-anchor="start">«enum» CardType</text>
+<text x="784" y="660" font-family="Rubik, 'Segoe UI', system-ui, sans-serif" font-size="11.5" font-weight="400" fill="#5d6370" text-anchor="start">HERO · MAGIC · ITEM · MODIFIER · CHALLENGE…</text>
+</svg>

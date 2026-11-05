@@ -1,0 +1,12 @@
+---
+import TextsView from '../../../../views/TextsView.astro';
+import { getTextFilterPaths } from '../../../../lib/text-filters';
+
+export async function getStaticPaths() {
+  return (await getTextFilterPaths()).tags.map((tag) => ({ params: { tag } }));
+}
+
+const { tag } = Astro.params;
+---
+
+<TextsView lang="en" filter={{ tag }} />

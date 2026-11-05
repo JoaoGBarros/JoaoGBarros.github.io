@@ -1,0 +1,119 @@
+# CV page (EN). Keep in sync with the Overleaf PDF (public/cv/cv-en.pdf).
+# Do not add a phone number here: the schema rejects unknown fields.
+nome: João Gabriel de Barros Rocha
+cargo: Software Engineer
+local: Vitória, Brazil (open to relocation)
+resumo: >-
+  Software Engineer who builds web applications end to end: REST APIs and backend services, SQL
+  databases and React/TypeScript frontends, graduating with a BSc in Computer Engineering in December
+  2026. As the sole backend and infrastructure engineer at a Spanish proptech startup, I own the
+  Python 3 (FastAPI) web service, the PostgreSQL database and the external integrations (Stripe,
+  Mapbox, LLM APIs) behind a web platform of 100,000+ listings. Experienced with Docker, Git branching
+  workflows with pull-request reviews and CI/CD, and a daily user of AI coding agents within a
+  disciplined, review-driven workflow. Fluent in English (C2) and used to working in
+  multidisciplinary, agile teams.
+
+competencias:
+  - grupo: Languages
+    itens: [TypeScript, JavaScript, Python 3, Java, SQL, Kotlin, PHP, C++]
+  - grupo: Frontend
+    itens: [React, Vue.js, HTML, CSS, Angular, Electron (Node.js), UI implementation with designers, Web design principles]
+  - grupo: Backend & APIs
+    itens: [REST APIs, FastAPI, Flask, Spring Boot, Jakarta EE, WebSockets, JPA/ORM, Microservices, Event-Driven Architecture, Apache Kafka, Third-party API integration (Stripe, Mapbox, LLM APIs)]
+  - grupo: Databases
+    itens: [PostgreSQL (schema design, provisioning, indexing, query tuning, PostGIS/GIST), MySQL, Redis]
+  - grupo: DevOps & Cloud
+    itens: [Docker, Docker Compose, Linux, Nginx, Git, GitHub Actions, GitLab CI/CD, Hetzner, Azure, AWS, Google Cloud, Cloudflare]
+  - grupo: AI
+    itens: [AI coding agents (Claude Code, Cursor), LLM integration (Claude, GPT), Computer vision for image filtering]
+  - grupo: Practices
+    itens: [Unit, integration & E2E testing (Pytest, Protractor), Code review, Application security, On-call & incident response, Scrum]
+
+experiencias:
+  - titulo: Back-end Software Engineer (Contract)
+    org: Property Guys, Spanish proptech startup
+    periodo: Mar 2026 – Present
+    local: Remote, Spain
+    pontos:
+      - Sole software engineer on the backend and infrastructure of a production real-estate web platform for the Mallorca market, with 100,000+ listings aggregated from roughly 1,000 agency websites; I own the FastAPI web service and REST API, the crawler, servers, networking and deployment in a remote, English-speaking Scrum team.
+      - Restructured the inherited monolith into Router-Service-Repository layers and fixed SQL injection, account-takeover and user-enumeration vulnerabilities.
+      - Integrated the platform with external systems, building the Stripe subscription flow end to end (checkout, plans, billing portal, webhooks), Mapbox geocoding for location validation and LLM APIs for listing descriptions, plus lead routing for subscribed agencies.
+      - Cut homepage load time by 84% and brought search to about 250 ms per page through PostgreSQL work, including B-tree and GIST spatial indexes, materialized views, N+1 query fixes and moving ranking logic into SQL.
+      - Migrated production from Azure to Hetzner, provisioning the servers, the PostgreSQL instance, DNS and security, and cut hosting costs by roughly 75%.
+      - Set up a Git workflow with protected branches and pull-request reviews, CI/CD in GitHub Actions with automatic rollback when integration tests fail, Pytest unit tests and daily database backups.
+      - Unified the company’s two crawlers into a single versioned repository with a shared database write contract and automated deploys.
+      - Designed the data-quality guards (sold and inactive listing detection, location validation, price recovery with Playwright, duplicate detection through pHash) and added a computer-vision step that removes stock photos, logos and agent portraits before publication.
+  - titulo: Junior Software Engineer
+    org: Software Engineering Practices Laboratory (LabES), UFES
+    periodo: Aug 2023 – Mar 2026
+    local: Vitória, Brazil
+    pontos:
+      - Software engineer on ES+ Criativo and HUB ES+, production web applications for the Espírito Santo State Secretariat of Culture that have supported 1,400+ events.
+      - Built the first version of both systems in Java (Jakarta EE, JPA, JSF), from the relational data model to the web UI, then led the migration to PHP and WordPress, writing custom plugins.
+      - Worked in a multidisciplinary team with designers and stakeholders, leading delivery meetings with the Secretariat and turning client needs into technical specifications.
+      - Served as the team’s on-call engineer for production incidents and covered the full lifecycle, from requirements and documentation to code review, deployment and user guides.
+  - titulo: Software Development Intern
+    org: Vixteam Consultoria & Sistemas
+    periodo: Dec 2021 – Feb 2023
+    local: Vitória, Brazil
+    pontos:
+      - Built the end-to-end test suite for Team Audit, Vixteam’s audit-management web platform, with Protractor and TypeScript.
+      - Fixed bugs across the full stack, from Angular and TypeScript components to Spring Boot services and REST APIs.
+
+projetos:
+  - titulo: CaLMo, Causal Loop Diagram Modeler (Best Paper, ERI-ES 2026)
+    org: Research project, NEMO, UFES · Vue.js, Python (Flask), PostgreSQL, Kafka, WebSockets
+    periodo: '2026'
+    link: https://dev.nemo.inf.ufes.br/calmo
+    pontos:
+      - Evolved CaLMo with an interactive graphical editor in Vue.js and vis.js (MVVM), delay-aware archetype detection, thematic subsystems and import/export in JSON, CSV and XMILE.
+      - Added real-time collaborative editing through WebSocket synchronization (Flask-SocketIO) and an Apache Kafka broker that orders every change and records each diagram’s edit history.
+  - titulo: Here To Slay, distributed multiplayer card game
+    org: Personal project · React, TypeScript, Java 21, Apache Kafka, Docker
+    periodo: '2026'
+    link: https://github.com/JoaoGBarros/HereToSlay
+    pontos:
+      - Client in React and TypeScript on Electron, connected through a WebSocket gateway, with the full stack in Docker Compose behind an Nginx reverse proxy.
+      - Event-driven backend where gateway, lobby and game-engine services talk only through an Apache Kafka cluster (3 brokers, KRaft), with event sourcing and crash recovery through compacted topics.
+  - titulo: CT9 “Na Palma da Mão”, academic management platform
+    org: Personal project · Java, Spring Boot, PostgreSQL, Docker, Angular, Kotlin
+    periodo: '2024'
+    link: https://github.com/JoaoGBarros/CT9-Backend
+    pontos:
+      - Designed the PostgreSQL schema from scratch and built the RESTful Spring Boot backend with role-based authentication, on Google Cloud Run, serving an Angular web client and a Kotlin Android app.
+
+formacao:
+  - titulo: BSc in Computer Engineering
+    org: Federal University of Espírito Santo (UFES)
+    periodo: Expected Dec 2026
+    local: Vitória, Brazil
+
+publicacoes:
+  - titulo: Best Paper Award, ERI-ES 2026
+    detalhe: >-
+      J. G. de Barros Rocha, J. de Souza Borges, T. F. N. Lahass, A. B. Apolinário, M. P. Barcellos.
+      Evolving CaLMo to Enhance Causal Loop Diagram Modeling: New Elements, Interactive Graphical
+      Support, Collaboration, and Interoperability. Proceedings of ERI-ES 2026 (to appear).
+
+idiomas: 'Portuguese (native) · English (C2): advanced immersion at ILAC Vancouver, Canada; Cambridge C1 Advanced (CAE)'
+
+lideranca:
+  - titulo: Student Ombudsman Coordinator
+    org: IT Academic Center, UFES
+    periodo: Aug 2023 – Nov 2024
+    local: Vitória, Brazil
+    pontos:
+      - Elected to represent 500+ Computer Science and Engineering students, negotiating directly with department heads to secure a dedicated student lounge and funding for a building renovation.
+      - Co-organized the 9th Regional School of Informatics with the Brazilian Computer Society (SBC), managing logistics and promotion for an event with 120+ attendees.
+  - titulo: Volunteer, content, tutoring and data science
+    org: Introcomp
+    periodo: Apr 2020 – Feb 2022
+    local: Vitória, Brazil
+    pontos:
+      - Taught Python programming fundamentals to public high school students and analyzed student performance data with Pandas and Matplotlib.
+  - titulo: Volunteer, technical support and scripts
+    org: Network Administration Lab, UFES
+    periodo: Mar 2019 – Jun 2019
+    local: Vitória, Brazil
+    pontos:
+      - Created Bash automation scripts for Linux systems and supported students with access and machine issues.

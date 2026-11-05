@@ -1,0 +1,117 @@
+# Página de currículo (PT). Mantenha em sincronia com o PDF do Overleaf (public/cv/cv-pt.pdf).
+# Não adicione telefone aqui: o schema rejeita campos desconhecidos.
+nome: João Gabriel de Barros Rocha
+cargo: Engenheiro de Software
+local: Vitória, Brasil (aberto a remoto e relocação)
+resumo: >-
+  Engenheiro de Software com foco em aplicações web de ponta a ponta (REST APIs, backend, bancos SQL
+  e frontends em React e TypeScript), formando em Engenharia de Computação em dezembro de 2026. Como
+  único engenheiro de um marketplace imobiliário em produção com mais de 100.000 imóveis, sou
+  responsável pelo web service em Python (FastAPI), pelo PostgreSQL e pelas integrações com sistemas
+  externos (Stripe, Mapbox, LLMs). Experiência com Docker, Git, CI/CD e uso disciplinado de IA no
+  desenvolvimento. Inglês fluente (C2) e acostumado a times remotos e ágeis.
+
+competencias:
+  - grupo: Linguagens
+    itens: [TypeScript, JavaScript, Python, Java, SQL, Kotlin, PHP, C++]
+  - grupo: Frontend
+    itens: [React, Vue.js, Angular, HTML, CSS, Electron (Node.js), Princípios de UI e web design]
+  - grupo: Backend & APIs
+    itens: [REST APIs, FastAPI, Flask, Spring Boot, Jakarta EE, WebSockets, JPA/ORM, Microsserviços, Arquitetura orientada a eventos, Apache Kafka, Integração com APIs externas (Stripe, Mapbox, LLMs)]
+  - grupo: Bancos de dados
+    itens: [PostgreSQL (modelagem, indexação, tuning de queries, GIST), MySQL, Redis]
+  - grupo: Infraestrutura
+    itens: [Docker, Docker Compose, Linux, Nginx, Git, GitHub Actions, GitLab CI/CD, Hetzner, Azure, AWS, GCP, Cloudflare]
+  - grupo: IA & Dados
+    itens: [Integração de LLM (Claude, GPT), IA no desenvolvimento (Claude Code, Codex, Cursor), Visão computacional, Scraping]
+  - grupo: Práticas
+    itens: [Testes unitários, de integração e E2E (Pytest, Protractor), Code review, Segurança de aplicações, Resposta a incidentes, Scrum]
+
+experiencias:
+  - titulo: Engenheiro de Software Backend (Contrato)
+    org: Property Guys, startup proptech espanhola
+    periodo: mar 2026 – presente
+    local: Remoto, Espanha
+    pontos:
+      - Único engenheiro de um marketplace imobiliário em produção que agrega imóveis de cerca de 1.000 sites de imobiliárias em um dataset PostgreSQL de mais de 100.000 propriedades, responsável pela REST API em FastAPI, crawler, servidores e deploy, em um time remoto de língua inglesa em Scrum.
+      - Refatorei o backend monolítico que herdei para uma estrutura em camadas Router-Service-Repository e reforcei a segurança em produção, substituindo SQL montado por string por queries parametrizadas e fechando vulnerabilidades de account takeover e de enumeração de usuários.
+      - Integrei a plataforma a sistemas externos, com o fluxo de assinatura e pagamento com Stripe de ponta a ponta (checkout, planos, portal de cobrança e webhooks), geocodificação com Mapbox, integrações com LLMs e roteamento de leads das agências assinantes.
+      - Reduzi o tempo de carregamento da página inicial em 84% e deixei a busca em cerca de 250 ms por página, com índices B-tree e GIST, materialized views, cache, correção de queries N+1 e ranqueamento no PostgreSQL.
+      - Migrei a infraestrutura de produção da Azure para a Hetzner (servidores, PostgreSQL, DNS e segurança) e reduzi o custo de hospedagem em cerca de 75%.
+      - Implantei a base de engenharia, com proteção de branch, revisão por pull request, CI/CD no GitHub Actions com rollback automático, mais de 50 módulos de testes em Pytest e backups diários.
+      - Unifiquei os dois crawlers da empresa em um repositório versionado, com pipeline de extração, enriquecimento e validação, filas em Redis e deploy automatizado.
+      - Criei validações de qualidade dos dados (imóveis vendidos e inativos, localização, preços com Playwright, duplicatas por pHash) e uma etapa de visão computacional que descarta fotos de banco de imagens, logos e retratos antes da publicação.
+  - titulo: Engenheiro de Software Júnior
+    org: Laboratório de Práticas de Engenharia de Software (LabES), UFES
+    periodo: ago 2023 – mar 2026
+    local: Vitória, Brasil
+    pontos:
+      - Construí e mantive o ES+ Criativo e o HUB ES+, plataformas web em produção da Secretaria de Cultura do Espírito Santo, que já apoiaram mais de 1.400 eventos.
+      - Desenvolvi a versão inicial dos dois sistemas em Java (Jakarta EE, JPA e JSF), do modelo de dados à interface web, e executei a migração para PHP e WordPress, com plugins próprios.
+      - Colaborei em um time multidisciplinar, com designers e stakeholders, conduzindo reuniões de entrega com a Secretaria e traduzindo as necessidades do cliente em especificações técnicas.
+      - Atuei como engenheiro de plantão em incidentes de produção e participei de todo o ciclo, de requisitos e documentação a code review, deploy e manuais para usuários.
+  - titulo: Estagiário de Desenvolvimento de Software
+    org: Vixteam Consultoria & Sistemas
+    periodo: dez 2021 – fev 2023
+    local: Vitória, Brasil
+    pontos:
+      - Arquitetei e implementei uma suíte de testes end-to-end com Protractor e TypeScript para o Team Audit, aplicação Angular de grande porte.
+      - Identifiquei, depurei e corrigi bugs no frontend Angular e no backend Spring Boot.
+
+projetos:
+  - titulo: CaLMo, Causal Loop Diagram Modeler (Melhor Artigo, ERI-ES 2026)
+    org: Projeto de pesquisa, NEMO, UFES · Vue.js, Python (Flask), PostgreSQL, Kafka, WebSockets
+    periodo: '2026'
+    link: https://dev.nemo.inf.ufes.br/calmo
+    pontos:
+      - Evoluí o CaLMo com um editor gráfico interativo em Vue.js e vis.js, detecção de arquétipos com atrasos, subsistemas e import/export em JSON, CSV e XMILE.
+      - Implementei edição colaborativa em tempo real com WebSocket (Flask-SocketIO) e Apache Kafka, que ordena as alterações e registra o histórico de cada diagrama.
+  - titulo: Here To Slay, jogo de cartas multiplayer distribuído
+    org: Projeto pessoal · React, TypeScript, Java 21, Apache Kafka, Docker
+    periodo: '2026'
+    link: https://github.com/JoaoGBarros/HereToSlay
+    pontos:
+      - Cliente em React, TypeScript e Electron sobre um gateway WebSocket, com a stack empacotada em Docker Compose atrás de um reverse proxy Nginx.
+      - Backend orientado a eventos em que gateway, lobby e game-engine se comunicam apenas por um cluster Apache Kafka (3 brokers, KRaft), com event sourcing e recuperação de falhas por tópicos compactados.
+  - titulo: CT9 “Na Palma da Mão”, plataforma de gestão acadêmica
+    org: Projeto pessoal · Java, Spring Boot, PostgreSQL, Docker, Angular, Kotlin
+    periodo: '2024'
+    link: https://github.com/JoaoGBarros/CT9-Backend
+    pontos:
+      - Schema PostgreSQL modelado do zero e backend RESTful em Spring Boot com autenticação por papéis, no Google Cloud Run, servindo um cliente Angular e um app Android.
+
+formacao:
+  - titulo: Bacharelado em Engenharia de Computação
+    org: Universidade Federal do Espírito Santo (UFES)
+    periodo: previsão dez 2026
+    local: Vitória, Brasil
+
+publicacoes:
+  - titulo: Prêmio de Melhor Artigo, ERI-ES 2026
+    detalhe: >-
+      J. G. de Barros Rocha, J. de Souza Borges, T. F. N. Lahass, A. B. Apolinário, M. P. Barcellos.
+      Evolving CaLMo to Enhance Causal Loop Diagram Modeling: New Elements, Interactive Graphical
+      Support, Collaboration, and Interoperability. Anais da ERI-ES 2026 (no prelo).
+
+idiomas: 'Português (nativo) · Inglês (C2): imersão avançada no ILAC Vancouver, Canadá; Cambridge C1 Advanced (CAE)'
+
+lideranca:
+  - titulo: Coordenador de Ouvidoria Estudantil
+    org: Centro Acadêmico de Informática (CAI), UFES
+    periodo: ago 2023 – nov 2024
+    local: Vitória, Brasil
+    pontos:
+      - Eleito para representar mais de 500 estudantes de Ciência e Engenharia da Computação, negociando com a chefia do departamento um espaço de convivência e verba para a reforma do prédio.
+      - Coorganizei a 9ª Escola Regional de Informática com a Sociedade Brasileira de Computação (SBC), cuidando de logística e divulgação para mais de 120 participantes.
+  - titulo: 'Voluntário: conteúdo, monitoria e ciência de dados'
+    org: Introcomp
+    periodo: abr 2020 – fev 2022
+    local: Vitória, Brasil
+    pontos:
+      - Ensinei programação em Python a alunos da rede pública de ensino médio e analisei o desempenho dos estudantes com Pandas.
+  - titulo: 'Voluntário: suporte técnico e scripts'
+    org: Laboratório de Administração de Redes, UFES
+    periodo: mar 2019 – jun 2019
+    local: Vitória, Brasil
+    pontos:
+      - Criei scripts de automação em Bash para Linux e dei suporte técnico a estudantes.

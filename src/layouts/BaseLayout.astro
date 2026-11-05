@@ -1,0 +1,117 @@
+---
+import '../styles/global.css';
+import ContactButtons from '../components/ContactButtons.astro';
+import Nav from '../components/Nav.astro';
+import { htmlLang, LANGS, sectionPath, switchLangPath, type Lang } from '../lib/i18n';
+import { t } from '../lib/ui-strings';
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description: string;
+  path: string;
+  ogImage?: string;
+  ogType?: 'website' | 'article';
+}
+
+const { lang, title, description, path, ogImage, ogType = 'website' } = Astro.props;
+const site = Astro.site ?? new URL('https://joaogbarros.github.io');
+const canonical = new URL(path, site);
+const OG_LOCALES: Record<Lang, string> = { pt: 'pt_BR', en: 'en_US' };
+const alternates = LANGS.map((l) => ({
+  lang: l,
+  href: new URL(l === lang ? path : switchLangPath(path, l), site).href,
+}));
+const xDefault = new URL(switchLangPath(path, 'en'), site).href;
+const year = new Date().getUTCFullYear();
+---
+
+<!doctype html>
+<html lang={htmlLang(lang)}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical.href} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    {alternates.map((alt) => <link rel="alternate" hreflang={alt.lang} href={alt.href} />)}
+    <link rel="alternate" hreflang="x-default" href={xDefault} />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title={t(lang, 'rssTitle')}
+      href={new URL(`/${lang}/rss.xml`, site).href}
+    />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical.href} />
+    <meta property="og:locale" content={OG_LOCALES[lang]} />
+    <meta property="og:site_name" content="João Gabriel" />
+    {ogImage && <meta property="og:image" content={new URL(ogImage, site).href} />}
+    <meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'} />
+  </head>
+  <body>
+    <a class="skip" href="#main">{t(lang, 'skipToContent')}</a>
+    <Nav lang={lang} path={path} />
+    <main id="main">
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <div class="container foot">
+        <div>
+          <a class="home" href={sectionPath(lang, 'home')}>João Gabriel de Barros Rocha</a>
+          <p>© {year} · {t(lang, 'footerNote')}</p>
+        </div>
+        <ContactButtons lang={lang} variant="footer" />
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style>
+  .skip {
+    position: absolute;
+    left: var(--space-4);
+    top: -10rem;
+    z-index: 20;
+    padding: var(--space-2) var(--space-4);
+    background: var(--color-ink);
+    color: var(--color-paper);
+    border-radius: var(--radius-sm);
+  }
+
+  .skip:focus {
+    top: var(--space-4);
+  }
+
+  main {
+    min-height: 70vh;
+  }
+
+  .site-footer {
+    margin-top: var(--space-section);
+    border-top: 1px solid var(--color-line);
+    padding-block: var(--space-6);
+    color: var(--color-muted);
+    font-size: var(--text-sm);
+  }
+
+  .foot {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-4);
+    align-items: center;
+  }
+
+  .home {
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--color-ink);
+    text-decoration: none;
+  }
+</style>
