@@ -129,4 +129,4 @@ A janela de modificador em si aparece como um painel no canto da tela, para todo
 
 Com o fim do semestre, o trabalho estava entregue, e o Here To Slay podia ter parado por aqui. Só que o objetivo desde a [parte 1](/pt/textos/here-to-slay-parte-1/) nunca foi passar numa disciplina: era jogar com os meus amigos. E, para isso, ainda faltava muita coisa. Várias cartas do jogo base não existiam ou não seguiam as regras oficiais, a interface só fazia sentido para quem estava jogando a vez, o jogo só rodava na minha máquina, e não tinha como jogar sozinho.
 
-No fim de outubro de 2026 eu voltei ao projeto com uma meta nova: transformar o trabalho num jogo de verdade. As próximas partes contam esse caminho. A parte 5 é sobre a maior refatoração do projeto: reescrever os efeitos de todas as 68 cartas.
+Então eu não parei. Depois da entrega, continuei desenvolvendo o jogo no resto do tempo, agora com uma meta nova: transformar o trabalho da disciplina num jogo de verdade. As próximas partes contam esse caminho. A parte 5 é sobre a maior refatoração do projeto: reescrever os efeitos de todas as 68 cartas.

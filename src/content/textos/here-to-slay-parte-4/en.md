@@ -129,4 +129,4 @@ The modifier window itself shows up as a panel in the corner of the screen, for 
 
 Once the semester ended, the project was handed in, and Here To Slay could have stopped right there. But the goal since [part 1](/en/writing/here-to-slay-parte-1/) was never passing a course: it was playing with my friends. And for that, a lot was still missing. Several base-game cards didn't exist or didn't follow the official rules, the interface only made sense to whoever was taking their turn, the game only ran on my machine, and there was no way to play alone.
 
-In late October 2026 I came back to the project with a new goal: turning the course project into a real game. The next parts tell that story. Part 5 is about the biggest refactor in the project: rewriting the effects of all 68 cards.
+So I didn't stop. After handing it in, I kept developing the game in the time that followed, now with a new goal: turning the course project into a real game. The next parts tell that story. Part 5 is about the biggest refactor in the project: rewriting the effects of all 68 cards.
