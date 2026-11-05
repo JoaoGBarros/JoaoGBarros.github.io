@@ -52,6 +52,10 @@ actionsIn
 
 O filtro `count == 3` faz o alerta sair uma vez só, no momento em que a terceira ação chega. Foco de ataque (30 s), efeito em cadeia (35 s) e Focusing (2 min) seguem a mesma receita, com janelas e chaves diferentes.
 
+Quando o alerta chega, o jogador ganha uma tag em cima do avatar, que fica lá por 20 segundos. Para tirar o print abaixo, a Maria comprou três cartas seguidas no turno dela, e logo depois a tag **Combo** apareceu para os dois jogadores:
+
+![A tag Combo em cima do avatar da Maria, no topo da mesa, enquanto a tela mostra que o João está escolhendo alvos para um efeito](./tela-tag-combo.webp)
+
 Um detalhe que só percebi revendo o código: todas essas janelas são *tumbling*, ou seja, blocos fixos de tempo que não se sobrepõem. Se as três ações de um combo caem metade no fim de uma janela e metade no começo da próxima, o combo não conta. Uma janela deslizante resolveria, ao custo de mais estado. Para uma badge de brincadeira, o comportamento atual é aceitável, mas é o tipo de escolha que vale saber que você fez.
 
 **3. Processor API com state store.** Algumas situações precisam de uma memória mais rica do que uma contagem, e aí entra a Processor API: um processador escrito à mão, com um *state store* próprio. O **First Blood** é o mais simples deles. Ele guarda, por partida, se alguém já derrotou um monstro:
@@ -116,6 +120,10 @@ A janela de desafio e o duelo seguem a mesma lógica da parte 2, só com a cara 
 No duelo, verde contra vermelho, o João já rolou 9, e a Maria ainda vai rolar. Repare na mão dela: um modificador de +3/-1, que poderia mudar esse resultado na janela de modificador que abre depois da rolagem.
 
 ![O duelo na versão de julho: Maria, em verde, ainda com os dados para rolar, contra João, em vermelho, que tirou 9, com a mão da Maria embaixo mostrando três heróis e um modificador de +3 ou -1](./tela-duelo-novo.webp)
+
+A janela de modificador em si aparece como um painel no canto da tela, para todo jogador que tem um modificador na mão. Ele dura 5 segundos e mostra, para cada carta, os valores possíveis e em qual rolagem eles vão valer. Aqui o João rolou 7 para ativar o efeito de um herói que pedia no mínimo 7, e a Maria pode somar 2 ou tirar 2 dessa rolagem:
+
+![O painel Play a Modifier? no canto da tela da Maria: um Modifier +2/-2, com os botões +2 e -2 para a rolagem do João, que tirou 7 com mínimo de 7](./tela-modificador.webp)
 
 ## Depois da disciplina
 

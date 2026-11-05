@@ -52,6 +52,10 @@ actionsIn
 
 The `count == 3` filter makes the alert fire only once, right when the third action arrives. Attack focus (30 s), chain effect (35 s) and Focusing (2 min) follow the same recipe, with different windows and keys.
 
+When the alert arrives, the player gets a tag above their avatar, which stays there for 20 seconds. For the screenshot below, Maria drew three cards in a row on her turn, and right after that the **Combo** tag showed up for both players:
+
+![The Combo tag above Maria's avatar at the top of the table, while the screen shows that João is choosing targets for an effect](./tela-tag-combo.webp)
+
 One detail I only noticed while going back through the code: all of these windows are *tumbling*, meaning fixed, non-overlapping blocks of time. If a combo's three actions land half at the end of one window and half at the start of the next, the combo doesn't count. A sliding window would fix that, at the cost of more state. For a just-for-fun badge, the current behavior is acceptable, but it's the kind of choice worth knowing you made.
 
 **3. The Processor API with a state store.** Some situations need a richer memory than a count, and that's where the Processor API comes in: a hand-written processor with its own *state store*. **First Blood** is the simplest of them. It remembers, per match, whether someone has already slain a monster:
@@ -116,6 +120,10 @@ The challenge window and the duel follow the same logic as in part 2, just with 
 In the duel, green against red, João has already rolled 9, and Maria is about to roll. Look at her hand: a +3/-1 modifier, which could change that result in the modifier window that opens after the roll.
 
 ![The duel in the July version: Maria, in green, still about to roll, against João, in red, who rolled 9, with Maria's hand below showing three heroes and a +3 or -1 modifier](./tela-duelo-novo.webp)
+
+The modifier window itself shows up as a panel in the corner of the screen, for every player holding a modifier. It lasts 5 seconds and shows, for each card, the possible values and which roll they apply to. Here João rolled 7 to trigger a hero's effect that needed at least 7, and Maria can add 2 to that roll or take 2 away:
+
+![The Play a Modifier? panel in the corner of Maria's screen: a +2/-2 Modifier, with +2 and -2 buttons for João's roll, which came out at 7 against a minimum of 7](./tela-modificador.webp)
 
 ## After the course
 
